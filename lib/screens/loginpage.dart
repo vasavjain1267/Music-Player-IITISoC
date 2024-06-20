@@ -24,7 +24,7 @@ class _LogPageState extends State<LogPage> {
               child: Icon(
                 Icons.arrow_back_outlined,
                 size: 40,
-                color: Color.fromARGB(255, 214, 148, 4),
+                color: Color.fromARGB(255, 214, 148, 5),
               )),
         ),
         body: SingleChildScrollView(
