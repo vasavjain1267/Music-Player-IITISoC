@@ -21,7 +21,7 @@ class _SignPageState extends State<SignPage> {
               child: Icon(
                 Icons.arrow_back_outlined,
                 size: 40,
-                color: Color.fromARGB(255, 214, 148, 3),
+                color: Color.fromARGB(255, 214, 148, 4),
               )),
         ),
         body: SignUp(),
