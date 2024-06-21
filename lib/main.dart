@@ -42,7 +42,7 @@ class _MyAppState extends State<MyApp> {
         toggleTheme: _toggleTheme,
       ),
       theme: ThemeData(
-        fontFamily: "DancingScript",
+        fontFamily: "Merriweather",
         brightness: Brightness.dark,
         //scaffoldBackgroundColor: Color.fromARGB(255, 197, 115, 9),
         primaryColor: Color.fromARGB(255, 197, 115, 9),

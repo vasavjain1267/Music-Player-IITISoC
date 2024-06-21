@@ -26,6 +26,7 @@ class _SignUpState extends State<SignUp> {
               Text(
                 "Get Started",
                 style: TextStyle(
+                    fontFamily: "DancingScript",
                     fontSize: 52,
                     fontWeight: FontWeight.w800,
                     color: Colors.white),
@@ -43,7 +44,7 @@ class _SignUpState extends State<SignUp> {
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 20,
-                        fontFamily: "Tourney"),
+                        fontFamily: "Merriweather"),
                   )
                 ],
               ),
@@ -63,7 +64,14 @@ class _SignUpState extends State<SignUp> {
                           border: Border.all(
                               color: const Color.fromARGB(255, 197, 141, 56))),
                       child: TextFormField(
-                        decoration: InputDecoration(border: InputBorder.none),
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Enter your name',
+                            hintStyle: TextStyle(
+                                //fontFamily: "Merriweather",
+                                color: Color.fromARGB(66, 218, 212, 212),
+                                fontSize: 21)),
                       ))
                 ],
               ),
@@ -80,7 +88,7 @@ class _SignUpState extends State<SignUp> {
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 20,
-                        fontFamily: "Tourney"),
+                        fontFamily: "Merriweather"),
                   )
                 ],
               ),
@@ -100,7 +108,14 @@ class _SignUpState extends State<SignUp> {
                           border: Border.all(
                               color: const Color.fromARGB(255, 197, 141, 56))),
                       child: TextFormField(
-                        decoration: InputDecoration(border: InputBorder.none),
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Enter your email',
+                            hintStyle: TextStyle(
+                                //fontFamily: "Merriweather",
+                                color: Color.fromARGB(66, 218, 212, 212),
+                                fontSize: 21)),
                       ))
                 ],
               ),
@@ -117,7 +132,7 @@ class _SignUpState extends State<SignUp> {
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 20,
-                        fontFamily: "Tourney"),
+                        fontFamily: "Merriweather"),
                   )
                 ],
               ),
@@ -137,7 +152,15 @@ class _SignUpState extends State<SignUp> {
                           border: Border.all(
                               color: const Color.fromARGB(255, 197, 141, 56))),
                       child: TextFormField(
-                        decoration: InputDecoration(border: InputBorder.none),
+                        textAlignVertical: TextAlignVertical.center,
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Enter your password',
+                            hintStyle: TextStyle(
+                                //fontFamily: "Merriweather",
+                                color: Color.fromARGB(66, 218, 212, 212),
+                                fontSize: 21)),
                       ))
                 ],
               ),
@@ -152,13 +175,13 @@ class _SignUpState extends State<SignUp> {
                   Container(
                     width: 280,
                     height: 40,
-                      decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 177, 113, 40),
-                          borderRadius: BorderRadius.circular(40),
-                          gradient: LinearGradient(colors: [
-                            Color.fromARGB(255, 212, 164, 101),
-                            Color.fromARGB(255, 219, 135, 24)
-                          ])),
+                    decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 177, 113, 40),
+                        borderRadius: BorderRadius.circular(40),
+                        gradient: LinearGradient(colors: [
+                          Color.fromARGB(255, 212, 164, 101),
+                          Color.fromARGB(255, 219, 135, 24)
+                        ])),
                     child: Center(
                       child: Text(
                         "Sign Up",
@@ -166,7 +189,7 @@ class _SignUpState extends State<SignUp> {
                             color: Color.fromARGB(255, 238, 237, 235),
                             fontSize: 24,
                             fontWeight: FontWeight.w400,
-                            fontFamily: "Tourney"),
+                            fontFamily: "Merriweather"),
                       ),
                     ),
                   )
@@ -181,8 +204,8 @@ class _SignUpState extends State<SignUp> {
                     width: 45,
                   ),
                   Text(
-                    "------------------- OR --------------------",
-                    style: TextStyle(fontSize: 23, fontFamily: "Tourney"),
+                    "--------- OR ---------",
+                    style: TextStyle(fontSize: 23, fontFamily: "Merriweather"),
                   ),
                 ],
               ),
@@ -196,7 +219,7 @@ class _SignUpState extends State<SignUp> {
                   ),
                   Text(
                     "Sign in with",
-                    style: TextStyle(fontSize: 18, fontFamily: "Tourney"),
+                    style: TextStyle(fontSize: 18, fontFamily: "Merriweather"),
                   ),
                 ],
               ),
@@ -263,7 +286,7 @@ class _SignUpState extends State<SignUp> {
                     "Already have an account? ",
                     style: TextStyle(
                         color: Colors.white,
-                        fontFamily: "Tourney",
+                        fontFamily: "Merriweather",
                         fontSize: 18),
                   ),
                   GestureDetector(
@@ -275,7 +298,7 @@ class _SignUpState extends State<SignUp> {
                       " Log In",
                       style: TextStyle(
                         color: Color.fromARGB(255, 218, 101, 7),
-                        fontFamily: "Tourney",
+                        fontFamily: "Merriweather",
                         fontSize: 18,
                       ),
                     ),

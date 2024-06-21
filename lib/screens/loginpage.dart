@@ -24,7 +24,7 @@ class _LogPageState extends State<LogPage> {
               child: Icon(
                 Icons.arrow_back_outlined,
                 size: 40,
-                color: Color.fromARGB(255, 214, 148, 4),
+                color: Color.fromARGB(255, 214, 148, 5),
               )),
         ),
         body: SingleChildScrollView(
@@ -38,6 +38,7 @@ class _LogPageState extends State<LogPage> {
                   Text(
                     "Welcome back",
                     style: TextStyle(
+                      fontFamily: "DancingScript",
                         fontSize: 52,
                         fontWeight: FontWeight.w800,
                         color: Colors.white),
@@ -55,7 +56,7 @@ class _LogPageState extends State<LogPage> {
                   //       style: TextStyle(
                   //           color: Colors.white,
                   //           fontSize: 20,
-                  //           fontFamily: "Tourney"),
+                  //           fontFamily: "Merriweather"),
                   //     )
                   //   ],
                   // ),
@@ -103,7 +104,7 @@ class _LogPageState extends State<LogPage> {
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 20,
-                            fontFamily: "Tourney"),
+                            fontFamily: "Merriweather"),
                       )
                     ],
                   ),
@@ -128,7 +129,7 @@ class _LogPageState extends State<LogPage> {
                             textAlign: TextAlign.center,
                             decoration: InputDecoration(
                                 border: InputBorder.none,
-                                hintText: "Email",
+                                hintText: "Enter your email",
                                 hintStyle: TextStyle(
                                     fontSize: 21,
                                     color: Color.fromARGB(255, 110, 105, 105))),
@@ -148,7 +149,7 @@ class _LogPageState extends State<LogPage> {
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 20,
-                            fontFamily: "Tourney"),
+                            fontFamily: "Merriweather"),
                       )
                     ],
                   ),
@@ -171,12 +172,13 @@ class _LogPageState extends State<LogPage> {
                           child: TextFormField(
                             //controller: password,
                             textAlign: TextAlign.center,
+                            textAlignVertical: TextAlignVertical.center,
                             obscureText: true,
                             decoration: InputDecoration(
                                 border: InputBorder.none,
-                                hintText: 'Password',
+                                hintText: 'Enter your Password',
                                 hintStyle: TextStyle(
-                                    //fontFamily: "Tourney",
+                                    //fontFamily: "Merriweather",
                                     color: Color.fromARGB(66, 218, 212, 212),
                                     fontSize: 21)),
                           ))
@@ -207,7 +209,7 @@ class _LogPageState extends State<LogPage> {
                                 color: Color.fromARGB(255, 238, 237, 235),
                                 fontSize: 24,
                                 fontWeight: FontWeight.w400,
-                                fontFamily: "Tourney"),
+                                fontFamily: "Merriweather"),
                           ),
                         ),
                       )
@@ -222,8 +224,8 @@ class _LogPageState extends State<LogPage> {
                         width: 45,
                       ),
                       Text(
-                        "------------------- OR --------------------",
-                        style: TextStyle(fontSize: 23, fontFamily: "Tourney"),
+                        "--------- OR ---------",
+                        style: TextStyle(fontSize: 23, fontFamily: "Merriweather"),
                       ),
                     ],
                   ),
@@ -237,7 +239,7 @@ class _LogPageState extends State<LogPage> {
                       ),
                       Text(
                         "Sign in with",
-                        style: TextStyle(fontSize: 18, fontFamily: "Tourney"),
+                        style: TextStyle(fontSize: 18, fontFamily: "Merriweather"),
                       ),
                     ],
                   ),
@@ -304,7 +306,7 @@ class _LogPageState extends State<LogPage> {
                         "First time? ",
                         style: TextStyle(
                             color: Colors.white,
-                            fontFamily: "Tourney",
+                            fontFamily: "Merriweather",
                             fontSize: 18),
                       ),
                       GestureDetector(
@@ -318,7 +320,7 @@ class _LogPageState extends State<LogPage> {
                           " Sign up",
                           style: TextStyle(
                             color: Color.fromARGB(255, 218, 101, 7),
-                            fontFamily: "Tourney",
+                            fontFamily: "Merriweather",
                             fontSize: 18,
                           ),
                         ),

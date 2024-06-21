@@ -25,6 +25,7 @@ class _LogInState extends State<LogIn> {
               Text(
                 "Welcome back",
                 style: TextStyle(
+                    fontFamily: "DancingScript",
                     fontSize: 52,
                     fontWeight: FontWeight.w800,
                     color: Colors.white),
@@ -42,7 +43,7 @@ class _LogInState extends State<LogIn> {
               //       style: TextStyle(
               //           color: Colors.white,
               //           fontSize: 20,
-              //           fontFamily: "Tourney"),
+              //           fontFamily: "Merriweather"),
               //     )
               //   ],
               // ),
@@ -90,7 +91,7 @@ class _LogInState extends State<LogIn> {
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 20,
-                        fontFamily: "Tourney"),
+                        fontFamily: "Merriweather"),
                   )
                 ],
               ),
@@ -110,7 +111,13 @@ class _LogInState extends State<LogIn> {
                           border: Border.all(
                               color: const Color.fromARGB(255, 197, 141, 56))),
                       child: TextFormField(
-                        decoration: InputDecoration(border: InputBorder.none),
+                        textAlign: TextAlign.center,
+                        textAlignVertical: TextAlignVertical.center,
+                        decoration: InputDecoration(border: InputBorder.none, hintText: 'Enter your email',
+                                hintStyle: TextStyle(
+                                    //fontFamily: "Merriweather",
+                                    color: Color.fromARGB(66, 218, 212, 212),
+                                    fontSize: 21)),
                       ))
                 ],
               ),
@@ -127,7 +134,7 @@ class _LogInState extends State<LogIn> {
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 20,
-                        fontFamily: "Tourney"),
+                        fontFamily: "Merriweather"),
                   )
                 ],
               ),
@@ -147,7 +154,13 @@ class _LogInState extends State<LogIn> {
                           border: Border.all(
                               color: const Color.fromARGB(255, 197, 141, 56))),
                       child: TextFormField(
-                        decoration: InputDecoration(border: InputBorder.none),
+                        textAlign: TextAlign.center,
+                        textAlignVertical: TextAlignVertical.center,
+                        decoration: InputDecoration(border: InputBorder.none, hintText: 'Enter your password',
+                                hintStyle: TextStyle(
+                                    //fontFamily: "Merriweather",
+                                    color: Color.fromARGB(66, 218, 212, 212),
+                                    fontSize: 21)),
                       ))
                 ],
               ),
@@ -157,7 +170,7 @@ class _LogInState extends State<LogIn> {
               Row(
                 children: [
                   SizedBox(
-                    width: 60,
+                    width: 52,
                   ),
                   Container(
                     width: 280,
@@ -176,9 +189,26 @@ class _LogInState extends State<LogIn> {
                             color: Color.fromARGB(255, 238, 237, 235),
                             fontSize: 24,
                             fontWeight: FontWeight.w400,
-                            fontFamily: "Tourney"),
+                            fontFamily: "Merriweather"),
                       ),
                     ),
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 120,
+                  ),
+                  Text(
+                    "Forget password?",
+                    style: TextStyle(
+                        fontFamily: "Default",
+                        fontSize: 18,
+                        color: const Color.fromARGB(255, 231, 183, 10)),
                   )
                 ],
               ),
@@ -191,8 +221,8 @@ class _LogInState extends State<LogIn> {
                     width: 45,
                   ),
                   Text(
-                    "------------------- OR --------------------",
-                    style: TextStyle(fontSize: 23, fontFamily: "Tourney"),
+                    "--------- OR ---------",
+                    style: TextStyle(fontSize: 23, fontFamily: "Merriweather"),
                   ),
                 ],
               ),
@@ -206,7 +236,7 @@ class _LogInState extends State<LogIn> {
                   ),
                   Text(
                     "Sign in with",
-                    style: TextStyle(fontSize: 18, fontFamily: "Tourney"),
+                    style: TextStyle(fontSize: 18, fontFamily: "Merriweather"),
                   ),
                 ],
               ),
@@ -273,7 +303,7 @@ class _LogInState extends State<LogIn> {
                     "First time? ",
                     style: TextStyle(
                         color: Colors.white,
-                        fontFamily: "Tourney",
+                        fontFamily: "Merriweather",
                         fontSize: 18),
                   ),
                   GestureDetector(
@@ -285,7 +315,7 @@ class _LogInState extends State<LogIn> {
                       " Sign up",
                       style: TextStyle(
                         color: Color.fromARGB(255, 218, 101, 7),
-                        fontFamily: "Tourney",
+                        fontFamily: "Merriweather",
                         fontSize: 18,
                       ),
                     ),
