@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:harmonix/home.dart';
 import 'package:harmonix/screens/welcome.dart';
 
-void main()  {
+void main() {
   //WidgetsFlutterBinding.ensureInitialized();
- // await Firebase.initializeApp();
+  // await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Welcome(),
       theme: ThemeData(
-        fontFamily: "DancingScript",
+        fontFamily: "Merriweather",
         brightness: Brightness.dark,
         //scaffoldBackgroundColor: Color.fromARGB(255, 197, 115, 9),
         primaryColor: Color.fromARGB(255, 197, 115, 9),
@@ -26,4 +26,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-

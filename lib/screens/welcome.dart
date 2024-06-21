@@ -109,6 +109,7 @@ class _WelcomeState extends State<Welcome> {
                       animatedTexts: [
                         TypewriterAnimatedText("HarmoniX",
                             textStyle: TextStyle(
+                              fontFamily: "DancingScript",
                               fontSize: 54,
                               color: Color.fromARGB(255, 218, 207, 187),
                             ),
@@ -176,6 +177,7 @@ class _WelcomeState extends State<Welcome> {
                         TypewriterAnimatedText(
                             "From quiet whispers to vibrant beats,\nFind your rhythm, a symphony that meets\nEvery mood, every heart's desire\nMusic's magic, set your soul on fire.",
                             textStyle: TextStyle(
+                              fontFamily: "DancingScript",
                               fontSize: 24,
                               color: Color.fromARGB(255, 187, 156, 99),
                             ),
