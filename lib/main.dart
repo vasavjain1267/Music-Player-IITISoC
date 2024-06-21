@@ -41,12 +41,22 @@ class _MyAppState extends State<MyApp> {
         password: password,
         toggleTheme: _toggleTheme,
       ),
+      // theme: ThemeData(
+      //   fontFamily: "Merriweather",
+      //   brightness: Brightness.dark,
+      //   //scaffoldBackgroundColor: Color.fromARGB(255, 197, 115, 9),
+      //   primaryColor: Color.fromARGB(255, 197, 115, 8),
+      // ),
       theme: ThemeData(
-        fontFamily: "Merriweather",
-        brightness: Brightness.dark,
-        //scaffoldBackgroundColor: Color.fromARGB(255, 197, 115, 9),
-        primaryColor: Color.fromARGB(255, 197, 115, 8),
+        primarySwatch: Colors.blue,
+        brightness: Brightness.light,
+        scaffoldBackgroundColor: Colors.white,
       ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: Colors.black,
+      ),
+      themeMode: _themeMode,
     );
   }
 }
