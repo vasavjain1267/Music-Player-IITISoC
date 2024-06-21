@@ -219,7 +219,7 @@ class _WelcomeState extends State<Welcome> {
                                   color: Colors.white,
                                   fontSize: 24,
                                   fontWeight: FontWeight.w400,
-                                  fontFamily: "Tourney"),
+                                  fontFamily: "default"),
                             ),
                           ),
                         ))),
@@ -252,7 +252,7 @@ class _WelcomeState extends State<Welcome> {
                                   color: Color.fromARGB(255, 231, 152, 6),
                                   fontSize: 24,
                                   fontWeight: FontWeight.w400,
-                                  fontFamily: "Tourney"),
+                                  fontFamily: "default"),
                             ),
                           ),
                         )))
