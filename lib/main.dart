@@ -45,7 +45,7 @@ class _MyAppState extends State<MyApp> {
         fontFamily: "Merriweather",
         brightness: Brightness.dark,
         //scaffoldBackgroundColor: Color.fromARGB(255, 197, 115, 9),
-        primaryColor: Color.fromARGB(255, 197, 115, 9),
+        primaryColor: Color.fromARGB(255, 197, 115, 8),
       ),
     );
   }
