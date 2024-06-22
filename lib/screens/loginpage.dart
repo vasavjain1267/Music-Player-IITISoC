@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_any_logo/flutter_logo.dart';
+import 'package:harmonix/screens/Reset.dart';
 import 'package:harmonix/screens/signpage.dart';
 
 class LogPage extends StatefulWidget {
@@ -17,6 +18,7 @@ class _LogPageState extends State<LogPage> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Colors.black,
           leading: GestureDetector(
               onTap: () {
                 Navigator.pop(context);
@@ -38,7 +40,7 @@ class _LogPageState extends State<LogPage> {
                   Text(
                     "Welcome back",
                     style: TextStyle(
-                      fontFamily: "DancingScript",
+                        fontFamily: "DancingScript",
                         fontSize: 52,
                         fontWeight: FontWeight.w800,
                         color: Colors.white),
@@ -132,7 +134,7 @@ class _LogPageState extends State<LogPage> {
                                 hintText: "Enter your email",
                                 hintStyle: TextStyle(
                                     fontSize: 21,
-                                    color: Color.fromARGB(255, 110, 105, 105))),
+                                    color:  Color.fromARGB(66, 218, 212, 212))),
                           ))
                     ],
                   ),
@@ -184,6 +186,7 @@ class _LogPageState extends State<LogPage> {
                           ))
                     ],
                   ),
+
                   SizedBox(
                     height: 30,
                   ),
@@ -216,6 +219,31 @@ class _LogPageState extends State<LogPage> {
                     ],
                   ),
                   SizedBox(
+                    height: 5,
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 120,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Reset()));
+                        },
+                        child: Text(
+                          "Forget password?",
+                          style: TextStyle(
+                              fontFamily: "Default",
+                              fontSize: 18,
+                              color: const Color.fromARGB(255, 231, 183, 10)),
+                        ),
+                      )
+                    ],
+                  ),
+                  SizedBox(
                     height: 15,
                   ),
                   Row(
@@ -225,7 +253,8 @@ class _LogPageState extends State<LogPage> {
                       ),
                       Text(
                         "--------- OR ---------",
-                        style: TextStyle(fontSize: 23, fontFamily: "Merriweather"),
+                        style:
+                            TextStyle(fontSize: 23, fontFamily: "Merriweather"),
                       ),
                     ],
                   ),
@@ -239,7 +268,8 @@ class _LogPageState extends State<LogPage> {
                       ),
                       Text(
                         "Sign in with",
-                        style: TextStyle(fontSize: 18, fontFamily: "Merriweather"),
+                        style:
+                            TextStyle(fontSize: 18, fontFamily: "Merriweather"),
                       ),
                     ],
                   ),

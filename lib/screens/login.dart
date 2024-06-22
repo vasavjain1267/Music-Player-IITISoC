@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_any_logo/flutter_logo.dart';
+import 'package:harmonix/screens/Reset.dart';
 import 'package:harmonix/screens/signpage.dart';
 
 class LogIn extends StatefulWidget {
@@ -113,11 +114,13 @@ class _LogInState extends State<LogIn> {
                       child: TextFormField(
                         textAlign: TextAlign.center,
                         textAlignVertical: TextAlignVertical.center,
-                        decoration: InputDecoration(border: InputBorder.none, hintText: 'Enter your email',
-                                hintStyle: TextStyle(
-                                    //fontFamily: "Merriweather",
-                                    color: Color.fromARGB(66, 218, 212, 212),
-                                    fontSize: 21)),
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Enter your email',
+                            hintStyle: TextStyle(
+                                //fontFamily: "Merriweather",
+                                color: Color.fromARGB(66, 218, 212, 212),
+                                fontSize: 21)),
                       ))
                 ],
               ),
@@ -156,11 +159,13 @@ class _LogInState extends State<LogIn> {
                       child: TextFormField(
                         textAlign: TextAlign.center,
                         textAlignVertical: TextAlignVertical.center,
-                        decoration: InputDecoration(border: InputBorder.none, hintText: 'Enter your password',
-                                hintStyle: TextStyle(
-                                    //fontFamily: "Merriweather",
-                                    color: Color.fromARGB(66, 218, 212, 212),
-                                    fontSize: 21)),
+                        decoration: InputDecoration(
+                            border: InputBorder.none,
+                            hintText: 'Enter your password',
+                            hintStyle: TextStyle(
+                                //fontFamily: "Merriweather",
+                                color: Color.fromARGB(66, 218, 212, 212),
+                                fontSize: 21)),
                       ))
                 ],
               ),
@@ -203,12 +208,18 @@ class _LogInState extends State<LogIn> {
                   SizedBox(
                     width: 120,
                   ),
-                  Text(
-                    "Forget password?",
-                    style: TextStyle(
-                        fontFamily: "Default",
-                        fontSize: 18,
-                        color: const Color.fromARGB(255, 231, 183, 10)),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Reset()));
+                    },
+                    child: Text(
+                      "Forget password?",
+                      style: TextStyle(
+                          fontFamily: "Default",
+                          fontSize: 18,
+                          color: const Color.fromARGB(255, 231, 183, 10)),
+                    ),
                   )
                 ],
               ),

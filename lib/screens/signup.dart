@@ -1,7 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_any_logo/flutter_logo.dart';
+import 'package:get/instance_manager.dart';
+
+import 'package:harmonix/musicmain.dart/bottomnavbar.dart';
 import 'package:harmonix/screens/login.dart';
 import 'package:harmonix/screens/loginpage.dart';
 
@@ -13,8 +17,11 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  
   @override
   Widget build(BuildContext context) {
+    //final controller = Get.put(SignUpController());
+   
     return SingleChildScrollView(
       child: Container(
           width: 408,
@@ -62,10 +69,13 @@ class _SignUpState extends State<SignUp> {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(40),
                           border: Border.all(
-                              color: const Color.fromARGB(255, 197, 141, 56))),
+                              color:
+                                  const Color.fromARGB(255, 197, 141, 56))),
                       child: TextFormField(
+                        
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.person),
                             border: InputBorder.none,
                             hintText: 'Enter your name',
                             hintStyle: TextStyle(
@@ -106,10 +116,13 @@ class _SignUpState extends State<SignUp> {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(40),
                           border: Border.all(
-                              color: const Color.fromARGB(255, 197, 141, 56))),
+                              color:
+                                  const Color.fromARGB(255, 197, 141, 56))),
                       child: TextFormField(
+                        
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.mail),
                             border: InputBorder.none,
                             hintText: 'Enter your email',
                             hintStyle: TextStyle(
@@ -150,11 +163,26 @@ class _SignUpState extends State<SignUp> {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(40),
                           border: Border.all(
-                              color: const Color.fromARGB(255, 197, 141, 56))),
+                              color:
+                                  const Color.fromARGB(255, 197, 141, 56))),
                       child: TextFormField(
+                        obscureText: true,
                         textAlignVertical: TextAlignVertical.center,
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.fingerprint),
+                            // prefixIcon: IconButton(
+                            //   icon: Icon(
+                            //     _passwordVisible
+                            //         ? Icons.visibility
+                            //         : Icons.visibility_off,
+                            //   ),
+                            //   onPressed: () {
+                            //    setState (() {
+                            //      _passwordVisible = !_passwordVisible;
+                            //     });
+                            //   },
+                            // ),
                             border: InputBorder.none,
                             hintText: 'Enter your password',
                             hintStyle: TextStyle(
@@ -183,20 +211,26 @@ class _SignUpState extends State<SignUp> {
                           Color.fromARGB(255, 219, 135, 24)
                         ])),
                     child: Center(
-                      child: Text(
-                        "Sign Up",
-                        style: TextStyle(
-                            color: Color.fromARGB(255, 238, 237, 235),
-                            fontSize: 24,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: "Merriweather"),
+                      child: GestureDetector(
+                        
+                        onTap: () {
+                         
+                        },
+                        child: Text(
+                          "Sign Up",
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 238, 237, 235),
+                              fontSize: 24,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: "Merriweather"),
+                        ),
                       ),
                     ),
                   )
                 ],
               ),
               SizedBox(
-                height: 15,
+                height: 25,
               ),
               Row(
                 children: [
@@ -205,7 +239,8 @@ class _SignUpState extends State<SignUp> {
                   ),
                   Text(
                     "--------- OR ---------",
-                    style: TextStyle(fontSize: 23, fontFamily: "Merriweather"),
+                    style:
+                        TextStyle(fontSize: 23, fontFamily: "Merriweather"),
                   ),
                 ],
               ),
@@ -219,7 +254,8 @@ class _SignUpState extends State<SignUp> {
                   ),
                   Text(
                     "Sign in with",
-                    style: TextStyle(fontSize: 18, fontFamily: "Merriweather"),
+                    style:
+                        TextStyle(fontSize: 18, fontFamily: "Merriweather"),
                   ),
                 ],
               ),

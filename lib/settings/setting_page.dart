@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:harmonix/pages/privacy_policy_page.dart';
-import 'package:harmonix/pages/terms_condition_page.dart';
-import 'package:harmonix/pages/faqs_page.dart';
-import 'package:harmonix/pages/about_us_page.dart';
+
+import 'package:harmonix/settings/privacy_policy_page.dart';
+import 'package:harmonix/settings/terms_condition_page.dart';
+import 'package:harmonix/settings/faqs_page.dart';
+import 'package:harmonix/settings/about_us_page.dart';
 
 class SettingsPage extends StatefulWidget {
   final String username;
@@ -203,10 +204,12 @@ class _SettingsPageState extends State<SettingsPage> {
           ),
           ListTile(
             leading: const Icon(Icons.logout, size: 30),
-            title: const Text('Log Out', style: TextStyle(fontSize: 20)),
-            onTap: () {
-              // Log out user
+            title: GestureDetector(
+               onTap: () {
+             // AuthenticationRepository.instance.logout();
             },
+              child: const Text('Log Out', style: TextStyle(fontSize: 20))),
+           
           ),
           ListTile(
             leading: const Icon(Icons.delete, size: 30),
