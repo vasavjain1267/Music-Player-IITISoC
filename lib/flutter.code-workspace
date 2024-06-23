@@ -1,0 +1,34 @@
+{
+	"folders": [
+		{
+			"path": "../../../../../Downloads/flutter"
+		},
+		{
+			"path": "../../../../../adv_basics"
+		},
+		{
+			"path": "../../../../../expense_tracker"
+		},
+		{
+			"path": "../../../../../flutter_internals"
+		},
+		{
+			"path": "../../../../../meals"
+		},
+		{
+			"path": "../../../../../app"
+		},
+		{
+			"path": "../../../../../chat_app"
+		},
+		{
+			"path": "../../../../../register_screen"
+		},
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "flutter"
+	}
+}
