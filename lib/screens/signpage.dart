@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:harmonix/musicmain.dart/bottomnavbar.dart';
 import 'package:harmonix/screens/signup.dart';
+import 'package:harmonix/screens/welcome.dart';
 
 class SignPage extends StatefulWidget {
   const SignPage({super.key});
@@ -11,16 +12,15 @@ class SignPage extends StatefulWidget {
 }
 
 class _SignPageState extends State<SignPage> {
-   
   @override
   Widget build(BuildContext context) {
-     
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
         leading: GestureDetector(
             onTap: () {
-              Navigator.pop(context);
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (context) => Welcome()));
             },
             child: Icon(
               Icons.arrow_back_outlined,

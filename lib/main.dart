@@ -7,9 +7,9 @@ import 'package:harmonix/musicmain.dart/bottomnavbar.dart';
 import 'package:harmonix/settings/setting_page.dart';
 import 'package:harmonix/screens/welcome.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+void main()  {
+ // WidgetsFlutterBinding.ensureInitialized();
+ // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   //.then((value) => Get.put(AuthenticationRepository()));
   runApp(const MyApp());
 }
@@ -39,8 +39,8 @@ class _MyAppState extends State<MyApp> {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Welcome(),
-      // home: bottomnav(),
+     // home: Welcome(),
+       home: bottomnav(),
       // home: SettingsPage(
       //   username: username,
       //   email: email,

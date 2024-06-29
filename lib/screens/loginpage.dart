@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_any_logo/flutter_logo.dart';
 import 'package:harmonix/screens/Reset.dart';
 import 'package:harmonix/screens/signpage.dart';
+import 'package:harmonix/screens/welcome.dart';
 
 class LogPage extends StatefulWidget {
   const LogPage({super.key});
@@ -21,7 +22,8 @@ class _LogPageState extends State<LogPage> {
           backgroundColor: Colors.black,
           leading: GestureDetector(
               onTap: () {
-                Navigator.pop(context);
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => Welcome()));
               },
               child: Icon(
                 Icons.arrow_back_outlined,
@@ -134,7 +136,7 @@ class _LogPageState extends State<LogPage> {
                                 hintText: "Enter your email",
                                 hintStyle: TextStyle(
                                     fontSize: 21,
-                                    color:  Color.fromARGB(66, 218, 212, 212))),
+                                    color: Color.fromARGB(66, 218, 212, 212))),
                           ))
                     ],
                   ),
@@ -228,10 +230,8 @@ class _LogPageState extends State<LogPage> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Reset()));
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Reset()));
                         },
                         child: Text(
                           "Forget password?",
