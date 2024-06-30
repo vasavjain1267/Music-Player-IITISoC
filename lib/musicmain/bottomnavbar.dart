@@ -4,9 +4,9 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 import 'package:flutter/material.dart';
 
-import 'package:harmonix/musicmain.dart/home.dart';
-import 'package:harmonix/musicmain.dart/library.dart';
-import 'package:harmonix/musicmain.dart/radio.dart';
+import 'package:harmonix/musicmain/home.dart';
+import 'package:harmonix/musicmain/library.dart';
+import 'package:harmonix/musicmain/radio.dart';
 import 'package:harmonix/settings/setting_page.dart';
 
 class bottomnav extends StatefulWidget {

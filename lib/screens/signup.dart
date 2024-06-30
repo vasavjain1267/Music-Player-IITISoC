@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_any_logo/flutter_logo.dart';
 import 'package:get/instance_manager.dart';
 
-import 'package:harmonix/musicmain.dart/bottomnavbar.dart';
+import 'package:harmonix/musicmain/bottomnavbar.dart';
 import 'package:harmonix/screens/login.dart';
 import 'package:harmonix/screens/loginpage.dart';
 

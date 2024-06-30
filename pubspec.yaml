@@ -43,6 +43,9 @@ dependencies:
   firebase_auth: ^5.1.0
   curved_navigation_bar: ^1.0.6
   get: ^4.6.6
+  google_sign_in: ^6.2.1
+  the_apple_sign_in: ^1.1.1
+  cloud_firestore: ^5.0.2
 
 dev_dependencies:
   flutter_test:

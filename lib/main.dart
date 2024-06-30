@@ -2,14 +2,14 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:harmonix/firebase_options.dart';
-import 'package:harmonix/musicmain.dart/bottomnavbar.dart';
+import 'package:harmonix/musicmain/bottomnavbar.dart';
 
 import 'package:harmonix/settings/setting_page.dart';
 import 'package:harmonix/screens/welcome.dart';
 
-void main()  {
- // WidgetsFlutterBinding.ensureInitialized();
- // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+void main() async {
+   WidgetsFlutterBinding.ensureInitialized();
+   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   //.then((value) => Get.put(AuthenticationRepository()));
   runApp(const MyApp());
 }
@@ -39,8 +39,8 @@ class _MyAppState extends State<MyApp> {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-     // home: Welcome(),
-       home: bottomnav(),
+      home: Welcome(),
+      // home: bottomnav(),
       // home: SettingsPage(
       //   username: username,
       //   email: email,
@@ -53,6 +53,7 @@ class _MyAppState extends State<MyApp> {
         scaffoldBackgroundColor: Color.fromARGB(255, 197, 115, 9),
         //scaffoldBackgroundColor: Colors.white,
         primaryColor: Color.fromARGB(255, 197, 115, 8),
+        useMaterial3: true,
       ),
       // theme: ThemeData(
       //   primarySwatch: Colors.blue,

@@ -53,14 +53,18 @@ class _ResetState extends State<Reset> {
                     height: 20,
                   ),
                   GestureDetector(
+                    //  onTap: () {
+                    //   showModalBottomSheet(
+                    //       scrollControlDisabledMaxHeightRatio: 9,
+                    //       backgroundColor: Color.fromARGB(255, 70, 67, 64),
+                    //       context: context,
+                    //       builder: (context) {
+                    //         return Mailreset();
+                    //       });
+                    // },
                      onTap: () {
-                      showModalBottomSheet(
-                          scrollControlDisabledMaxHeightRatio: 9,
-                          backgroundColor: Color.fromARGB(255, 70, 67, 64),
-                          context: context,
-                          builder: (context) {
-                            return Mailreset();
-                          });
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Mailreset()));
                     },
                     child: Container(
                       margin: EdgeInsets.symmetric(
