@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/instance_manager.dart';
 import 'package:harmonix/firebase_options.dart';
+import 'package:harmonix/home_screen.dart';
 import 'package:harmonix/musicmain/bottomnavbar.dart';
 
 import 'package:harmonix/settings/setting_page.dart';
@@ -40,7 +41,8 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Welcome(),
-      // home: bottomnav(),
+//home: HomeScreen(onThemeChanged: _toggleTheme),
+       //home: bottomnav(),
       // home: SettingsPage(
       //   username: username,
       //   email: email,
