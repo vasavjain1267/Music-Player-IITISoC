@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "21882794014",
+    "project_id": "musiciitisoc",
+    "storage_bucket": "musiciitisoc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:21882794014:android:095027904517478d983e0f",
+        "android_client_info": {
+          "package_name": "com.example.harmonix"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7mQ96J_I23z3i4aD92KkYlnIiu9lseN8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

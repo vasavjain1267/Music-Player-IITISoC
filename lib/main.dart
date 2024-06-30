@@ -1,12 +1,16 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:harmonix/home.dart';
-import 'package:harmonix/pages/setting_page.dart';
+import 'package:get/instance_manager.dart';
+import 'package:harmonix/firebase_options.dart';
+import 'package:harmonix/musicmain.dart/bottomnavbar.dart';
+
+import 'package:harmonix/settings/setting_page.dart';
 import 'package:harmonix/screens/welcome.dart';
 
-void main() {
-  //WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp();
+void main()  {
+ // WidgetsFlutterBinding.ensureInitialized();
+ // await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  //.then((value) => Get.put(AuthenticationRepository()));
   runApp(const MyApp());
 }
 
@@ -18,7 +22,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  ThemeMode _themeMode = ThemeMode.light;
+  ThemeMode _themeMode = ThemeMode.dark;
 
   void _toggleTheme(bool isDarkMode) {
     setState(() {
@@ -35,26 +39,30 @@ class _MyAppState extends State<MyApp> {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SettingsPage(
-        username: username,
-        email: email,
-        password: password,
-        toggleTheme: _toggleTheme,
-      ),
-      // theme: ThemeData(
-      //   fontFamily: "Merriweather",
-      //   brightness: Brightness.dark,
-      //   //scaffoldBackgroundColor: Color.fromARGB(255, 197, 115, 9),
-      //   primaryColor: Color.fromARGB(255, 197, 115, 8),
+     // home: Welcome(),
+       home: bottomnav(),
+      // home: SettingsPage(
+      //   username: username,
+      //   email: email,
+      //   password: password,
+      //   toggleTheme: _toggleTheme,
       // ),
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        brightness: Brightness.light,
-        scaffoldBackgroundColor: Colors.white,
+        fontFamily: "Merriweather",
+        brightness: Brightness.dark,
+        scaffoldBackgroundColor: Color.fromARGB(255, 197, 115, 9),
+        //scaffoldBackgroundColor: Colors.white,
+        primaryColor: Color.fromARGB(255, 197, 115, 8),
       ),
+      // theme: ThemeData(
+      //   primarySwatch: Colors.blue,
+      //   brightness: Brightness.light,
+      //   // scaffoldBackgroundColor: Colors.white,
+      // ),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
         scaffoldBackgroundColor: Colors.black,
+        fontFamily: "Merriweather",
       ),
       themeMode: _themeMode,
     );
