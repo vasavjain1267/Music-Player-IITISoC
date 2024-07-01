@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_any_logo/flutter_logo.dart';
@@ -17,34 +18,102 @@ class LogPage extends StatefulWidget {
 }
 
 class _LogPageState extends State<LogPage> {
-  String email = "", password = "";
+  // String email = "", password = "";
 
-  TextEditingController mailcontroller = new TextEditingController();
-  TextEditingController passwordcontroller = new TextEditingController();
+  // TextEditingController mailcontroller = new TextEditingController();
+  // TextEditingController passwordcontroller = new TextEditingController();
+
+  // final _formkey = GlobalKey<FormState>();
+
+  // userLogin() async {
+  //   try {
+  //     await FirebaseAuth.instance
+  //         .signInWithEmailAndPassword(email: email, password: password);
+  //     Navigator.push(
+  //         context, MaterialPageRoute(builder: (context) => bottomnav()));
+  //   } on FirebaseAuthException catch (e) {
+  //     if (e.code == 'user-not-found') {
+  //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+  //           backgroundColor: Colors.orangeAccent,
+  //           content: Text(
+  //             "No User Found for that Email",
+  //             style: TextStyle(fontSize: 18.0),
+  //           )));
+  //     } else if (e.code == 'wrong-password') {
+  //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+  //           backgroundColor: Colors.orangeAccent,
+  //           content: Text(
+  //             "Wrong Password Provided by User",
+  //             style: TextStyle(fontSize: 18.0),
+  //           )));
+  //     }
+  //   }
+  // }
+  String email = "", password = "";
+  bool _passwordVisible = false;
+  bool _isLoading = false;
+
+  TextEditingController mailcontroller = TextEditingController();
+  TextEditingController passwordcontroller = TextEditingController();
 
   final _formkey = GlobalKey<FormState>();
 
-  userLogin() async {
-    try {
-      await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => bottomnav()));
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
+  Future<void> userLogin() async {
+    if (passwordcontroller.text.isNotEmpty && mailcontroller.text.isNotEmpty) {
+      setState(() {
+        _isLoading = true;
+      });
+      // setState(() {
+      //   _isLoading = true;
+      // });
+      try {
+        UserCredential userCredential = await FirebaseAuth.instance
+            .signInWithEmailAndPassword(email: email, password: password);
+
+        // Fetch user details from Firestore
+        // DocumentSnapshot docSnap = await FirebaseFirestore.instance
+        //     .collection('users')
+        //     .doc(userCredential.user!.uid)
+        //     .get();
+
+        // if (docSnap.exists) {
+        //   Map<String, dynamic> data = docSnap.data() as Map<String, dynamic>;
+        //   String name = data['name'];
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => bottomnav()),
+        );
+        // } else {
+        //   // Handle case where document doesn't exist
+        //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        //     backgroundColor: Colors.orangeAccent,
+        //     content: Text(
+        //       "No user found associated with this email.",
+        //       style: TextStyle(fontSize: 18.0),
+        //     ),
+        //   ));
+        // }
+      } on FirebaseAuthException catch (e) {
+        String errorMessage;
+        if (e.code == 'user-not-found') {
+          errorMessage = "No User Found for that Email";
+        } else if (e.code == 'wrong-password') {
+          errorMessage = "Wrong Password Provided by User";
+        } else {
+          errorMessage = "An error occurred. Please try again.";
+        }
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            backgroundColor: Colors.orangeAccent,
-            content: Text(
-              "No User Found for that Email",
-              style: TextStyle(fontSize: 18.0),
-            )));
-      } else if (e.code == 'wrong-password') {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            backgroundColor: Colors.orangeAccent,
-            content: Text(
-              "Wrong Password Provided by User",
-              style: TextStyle(fontSize: 18.0),
-            )));
+          backgroundColor: Colors.orangeAccent,
+          content: Text(
+            errorMessage,
+            style: TextStyle(fontSize: 18.0),
+          ),
+        ));
+      } finally {
+        setState(() {
+          _isLoading = false;
+        });
       }
     }
   }
@@ -163,26 +232,26 @@ class _LogPageState extends State<LogPage> {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(40),
                                 border: Border.all(
-                                    color:
-                                        const Color.fromARGB(255, 197, 141, 56))),
+                                    color: const Color.fromARGB(
+                                        255, 197, 141, 56))),
                             child: TextFormField(
-
-                                                      validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please Enter E-mail';
-                          }
-                          return null;
-                        },
-                        controller: mailcontroller,
-
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please Enter E-mail';
+                                }
+                                return null;
+                              },
+                              controller: mailcontroller,
                               textAlignVertical: TextAlignVertical.center,
                               textAlign: TextAlign.center,
                               decoration: InputDecoration(
+                                  prefixIcon: Icon(Icons.mail),
                                   border: InputBorder.none,
                                   hintText: "Enter your email",
                                   hintStyle: TextStyle(
                                       fontSize: 21,
-                                      color: Color.fromARGB(66, 218, 212, 212))),
+                                      color:
+                                          Color.fromARGB(66, 218, 212, 212))),
                             ))
                       ],
                     ),
@@ -217,22 +286,37 @@ class _LogPageState extends State<LogPage> {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(40),
                                 border: Border.all(
-                                    color:
-                                        const Color.fromARGB(255, 197, 141, 56))),
+                                    color: const Color.fromARGB(
+                                        255, 197, 141, 56))),
                             child: TextFormField(
                               controller: passwordcontroller,
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please Enter Password';
-                          }
-                          return null;
-                        },
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please Enter Password';
+                                }
+                                return null;
+                              },
                               //controller: password,
                               textAlign: TextAlign.center,
                               textAlignVertical: TextAlignVertical.center,
-                              obscureText: true,
+                              // obscureText: true,
+                              obscureText: !_passwordVisible,
+
                               decoration: InputDecoration(
                                   border: InputBorder.none,
+                                  prefixIcon: IconButton(
+                                    icon: Icon(
+                                      _passwordVisible
+                                          ? Icons.visibility
+                                          : Icons.visibility_off,
+                                      color: Color(0xFFb2b7bf),
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        _passwordVisible = !_passwordVisible;
+                                      });
+                                    },
+                                  ),
                                   hintText: 'Enter your Password',
                                   hintStyle: TextStyle(
                                       //fontFamily: "Merriweather",
@@ -241,7 +325,7 @@ class _LogPageState extends State<LogPage> {
                             ))
                       ],
                     ),
-                
+
                     SizedBox(
                       height: 30,
                     ),
@@ -251,15 +335,15 @@ class _LogPageState extends State<LogPage> {
                           width: 60,
                         ),
                         GestureDetector(
-                          onTap: (){
-                        if(_formkey.currentState!.validate()){
-                          setState(() {
-                            email= mailcontroller.text;
-                            password=passwordcontroller.text;
-                          });
-                        }
-                        userLogin();
-                      },
+                          onTap: () {
+                            if (_formkey.currentState!.validate()) {
+                              setState(() {
+                                email = mailcontroller.text;
+                                password = passwordcontroller.text;
+                              });
+                            }
+                            userLogin();
+                          },
                           child: Container(
                             width: 280,
                             height: 40,
@@ -294,8 +378,10 @@ class _LogPageState extends State<LogPage> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            Navigator.push(context,
-                                MaterialPageRoute(builder: (context) => Reset()));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Reset()));
                           },
                           child: Text(
                             "Forget password?",
@@ -317,8 +403,8 @@ class _LogPageState extends State<LogPage> {
                         ),
                         Text(
                           "--------- OR ---------",
-                          style:
-                              TextStyle(fontSize: 23, fontFamily: "Merriweather"),
+                          style: TextStyle(
+                              fontSize: 23, fontFamily: "Merriweather"),
                         ),
                       ],
                     ),
@@ -332,8 +418,8 @@ class _LogPageState extends State<LogPage> {
                         ),
                         Text(
                           "Sign in with",
-                          style:
-                              TextStyle(fontSize: 18, fontFamily: "Merriweather"),
+                          style: TextStyle(
+                              fontSize: 18, fontFamily: "Merriweather"),
                         ),
                       ],
                     ),
@@ -358,9 +444,9 @@ class _LogPageState extends State<LogPage> {
                           width: 15,
                         ),
                         GestureDetector(
-                          onTap: (){
-                    AuthMethods().signInWithGoogle(context);
-                  },
+                          onTap: () {
+                            AuthMethods().signInWithGoogle(context);
+                          },
                           child: Container(
                             height: 70,
                             width: 70,

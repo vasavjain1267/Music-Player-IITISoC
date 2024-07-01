@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:harmonix/screens/welcome.dart';
 import 'package:harmonix/settings/about_us_page.dart';
 import 'package:harmonix/settings/faqs_page.dart';
 //import 'package:home_page/pages/about_us_page.dart';
@@ -55,6 +58,13 @@ class _AppDrawerState extends State<AppDrawer> {
         );
       },
     );
+  }
+
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  signOut() async {
+    await auth.signOut();
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => Welcome()));
   }
 
   @override
@@ -167,13 +177,15 @@ class _AppDrawerState extends State<AppDrawer> {
           ListTile(
             leading: Icon(Icons.logout),
             title: Text('Log Out'),
-            onTap: () {},
+            onTap: () {
+              signOut();
+            },
           ),
-          ListTile(
-            leading: Icon(Icons.delete),
-            title: Text('Delete My Account'),
-            onTap: _deleteAccount,
-          ),
+          // ListTile(
+          //   leading: Icon(Icons.delete),
+          //   title: Text('Delete My Account'),
+          //   onTap: _deleteAccount,
+          // ),
           ListTile(
             leading: const Icon(Icons.info_outline, size: 30),
             title: const Text('About Us'),

@@ -17,43 +17,95 @@ class SignPage extends StatefulWidget {
 
 class _SignPageState extends State<SignPage> {
 
-  String email = "", password = "", name = "";
-  TextEditingController namecontroller = new TextEditingController();
-  TextEditingController passwordcontroller = new TextEditingController();
-  TextEditingController mailcontroller = new TextEditingController();
+  // String email = "", password = "", name = "";
+  // TextEditingController namecontroller = new TextEditingController();
+  // TextEditingController passwordcontroller = new TextEditingController();
+  // TextEditingController mailcontroller = new TextEditingController();
 
-   final _formkey = GlobalKey<FormState>();
+  //  final _formkey = GlobalKey<FormState>();
+
+  // registration() async {
+  //   if (password != null&& namecontroller.text!=""&& mailcontroller.text!="") {
+  //     try {
+  //       UserCredential userCredential = await FirebaseAuth.instance
+  //           .createUserWithEmailAndPassword(email: email, password: password);
+  //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+  //           content: Text(
+  //         "Registered Successfully",
+  //         style: TextStyle(fontSize: 20.0),
+  //       )));
+  //       // ignore: use_build_context_synchronously
+  //       Navigator.push(
+  //           context, MaterialPageRoute(builder: (context) => bottomnav()));
+  //     } on FirebaseAuthException catch (e) {
+  //       if (e.code == 'weak-password') {
+  //         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+  //             backgroundColor: Colors.orangeAccent,
+  //             content: Text(
+  //               "Password Provided is too Weak",
+  //               style: TextStyle(fontSize: 18.0),
+  //             )));
+  //       } else if (e.code == "email-already-in-use") {
+  //         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+  //             backgroundColor: Colors.orangeAccent,
+  //             content: Text(
+  //               "Account Already exists",
+  //               style: TextStyle(fontSize: 18.0),
+  //             )));
+  //       }
+  //     }
+  //   }
+  // }
+   String email = "", password = "", name = "";
+  bool _isLoading = false;
+  bool _passwordVisible = false;
+
+  TextEditingController namecontroller = TextEditingController();
+  TextEditingController passwordcontroller = TextEditingController();
+  TextEditingController mailcontroller = TextEditingController();
+
+  final _formkey = GlobalKey<FormState>();
 
   registration() async {
-    if (password != null&& namecontroller.text!=""&& mailcontroller.text!="") {
+    if (passwordcontroller.text.isNotEmpty && namecontroller.text.isNotEmpty && mailcontroller.text.isNotEmpty) {
+      setState(() {
+        _isLoading = true;
+      });
       try {
+        // ignore: unused_local_variable
         UserCredential userCredential = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: email, password: password);
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text(
           "Registered Successfully",
           style: TextStyle(fontSize: 20.0),
         )));
-        // ignore: use_build_context_synchronously
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => bottomnav()));
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => bottomnav()),
+        );
       } on FirebaseAuthException catch (e) {
+        setState(() {
+          _isLoading = false;
+        });
         if (e.code == 'weak-password') {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               backgroundColor: Colors.orangeAccent,
               content: Text(
                 "Password Provided is too Weak",
                 style: TextStyle(fontSize: 18.0),
               )));
         } else if (e.code == "email-already-in-use") {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               backgroundColor: Colors.orangeAccent,
               content: Text(
                 "Account Already exists",
                 style: TextStyle(fontSize: 18.0),
               )));
         }
+        
       }
+      
     }
   }
   @override
@@ -72,7 +124,18 @@ class _SignPageState extends State<SignPage> {
               color: Color.fromARGB(255, 214, 148, 6),
             )),
       ),
-      body: SingleChildScrollView(
+      body:_isLoading
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircularProgressIndicator(),
+                  SizedBox(height: 20),
+                  Text("Wait For Few Seconds"),
+                ],
+              ),
+            )
+          : SingleChildScrollView(
       child: Container(
           width: 408,
           child: Form(
@@ -242,24 +305,25 @@ class _SignPageState extends State<SignPage> {
                           return null;
                         },
                         controller: passwordcontroller,
-                          obscureText: true,
+                           obscureText: !_passwordVisible,
                           textAlignVertical: TextAlignVertical.center,
                           textAlign: TextAlign.center,
                           decoration: InputDecoration(
-                              prefixIcon: Icon(Icons.fingerprint),
-                              // prefixIcon: IconButton(
-                              //   icon: Icon(
-                              //     _passwordVisible
-                              //         ? Icons.visibility
-                              //         : Icons.visibility_off,
-                              //   ),
-                              //   onPressed: () {
-                              //    setState (() {
-                              //      _passwordVisible = !_passwordVisible;
-                              //     });
-                              //   },
-                              // ),
+                              
                               border: InputBorder.none,
+                               prefixIcon: IconButton(
+                                  icon: Icon(
+                                    _passwordVisible
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
+                                    color: Color(0xFFb2b7bf),
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      _passwordVisible = !_passwordVisible;
+                                    });
+                                  },
+                                ),
                               hintText: 'Enter your password',
                               hintStyle: TextStyle(
                                   //fontFamily: "Merriweather",

@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:harmonix/screens/welcome.dart';
 
 import 'package:harmonix/settings/privacy_policy_page.dart';
 import 'package:harmonix/settings/terms_condition_page.dart';
@@ -27,34 +29,109 @@ class _SettingsPageState extends State<SettingsPage> {
   bool isDarkMode = false;
 
   void _deleteAccount() {
+    // showDialog(
+    //   context: context,
+    //   builder: (context) {
+    //     return AlertDialog(
+    //       title: const Text('Delete Account'),
+    //       content: const Text(
+    //           'Are you sure you want to delete your account? This action cannot be undone.'),
+    //       actions: [
+    //         TextButton(
+    //           onPressed: () {
+    //             Navigator.of(context).pop();
+    //           },
+    //           child: const Text('Cancel'),
+    //         ),
+    //         TextButton(
+    //           onPressed: () {
+    //             // Implement account deletion logic here
+    //             Navigator.of(context).pop();
+    //             ScaffoldMessenger.of(context).showSnackBar(
+    //               const SnackBar(content: Text('Account deleted')),
+    //             );
+    //           },
+    //           child: const Text('Delete'),
+    //         ),
+    //       ],
+    //     );
+    //   },
+    // );
     showDialog(
       context: context,
-      builder: (context) {
+      builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Delete Account'),
+          title: const Text('Delete your Account?'),
           content: const Text(
-              'Are you sure you want to delete your account? This action cannot be undone.'),
+              '''If you select Delete we will delete your account on our server.
+
+Your app data will also be deleted and you won't be able to retrieve it.
+
+Since this is a security-sensitive operation, you eventually are asked to login before your account can be deleted.'''),
           actions: [
             TextButton(
+              child: const Text('Cancel'),
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('Cancel'),
             ),
             TextButton(
+              child: const Text(
+                'Delete',
+                selectionColor: Colors.red,
+              ),
               onPressed: () {
-                // Implement account deletion logic here
-                Navigator.of(context).pop();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Account deleted')),
-                );
+                // Call the delete account function
+                deleteUserAccount();
+                 Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => Welcome()));
               },
-              child: const Text('Delete'),
             ),
           ],
         );
       },
     );
+  }
+  Future<void> deleteUserAccount() async {
+  try {
+  await FirebaseAuth.instance.currentUser!.delete();
+
+  } on FirebaseAuthException catch (e) {
+   // log.e(e);
+
+    if (e.code == "requires-recent-login") {
+      await _reauthenticateAndDelete();
+    } else {
+      // Handle other Firebase exceptions
+    }
+  } catch (e) {
+   // log.e(e);
+
+    // Handle general exception
+  }
+}
+Future<void> _reauthenticateAndDelete() async {
+  try {
+    final providerData = auth.currentUser?.providerData.first;
+
+    if (AppleAuthProvider().providerId == providerData!.providerId) {
+      await auth.currentUser!
+          .reauthenticateWithProvider(AppleAuthProvider());
+    } else if (GoogleAuthProvider().providerId == providerData.providerId) {
+      await auth.currentUser!
+          .reauthenticateWithProvider(GoogleAuthProvider());
+    }
+
+    await auth.currentUser?.delete();
+  } catch (e) {
+    // Handle exceptions
+  }
+}
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  signOut() async {
+    await auth.signOut();
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => Welcome()));
   }
 
   @override
@@ -205,11 +282,11 @@ class _SettingsPageState extends State<SettingsPage> {
           ListTile(
             leading: const Icon(Icons.logout, size: 30),
             title: GestureDetector(
-               onTap: () {
-             // AuthenticationRepository.instance.logout();
-            },
-              child: const Text('Log Out', style: TextStyle(fontSize: 20))),
-           
+                onTap: () {
+                  // AuthenticationRepository.instance.logout();
+                  signOut();
+                },
+                child: const Text('Log Out', style: TextStyle(fontSize: 20))),
           ),
           ListTile(
             leading: const Icon(Icons.delete, size: 30),

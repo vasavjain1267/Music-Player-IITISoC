@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:harmonix/otp.dart';
 import 'package:harmonix/screens/mailreset.dart';
 import 'package:harmonix/screens/otpreset.dart';
 
@@ -117,15 +118,19 @@ class _ResetState extends State<Reset> {
                     height: 20,
                   ),
                   GestureDetector(
+                    // onTap: () {
+                    //   showModalBottomSheet(
+                    //       scrollControlDisabledMaxHeightRatio: 9,
+                    //       backgroundColor: Color.fromARGB(255, 70, 67, 64),
+                    //       context: context,
+                    //       builder: (context) {
+                    //         return Otpreset();
+                    //       });
+                    // },
                     onTap: () {
-                      showModalBottomSheet(
-                          scrollControlDisabledMaxHeightRatio: 9,
-                          backgroundColor: Color.fromARGB(255, 70, 67, 64),
-                          context: context,
-                          builder: (context) {
-                            return Otpreset();
-                          });
-                    },
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (context) => Otp()));
+            },
                     child: Container(
                       margin: EdgeInsets.symmetric(
                         horizontal: 20,
