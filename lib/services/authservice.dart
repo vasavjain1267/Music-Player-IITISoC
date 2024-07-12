@@ -33,11 +33,11 @@ class AuthMethods {
 
     User? userDetails = result.user;
 
-    if (result != null) {
+    if (result!=null) {
       Map<String, dynamic> userInfoMap = {
         "email": userDetails!.email,
         "name": userDetails.displayName,
-        "imgUrl": userDetails.photoURL,
+       // "imgUrl": userDetails.photoURL,
         "id": userDetails.uid
       };
       await DatabaseMethods()

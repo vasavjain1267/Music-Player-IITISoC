@@ -4,6 +4,7 @@ import 'package:get/instance_manager.dart';
 import 'package:harmonix/firebase_options.dart';
 import 'package:harmonix/home_screen.dart';
 import 'package:harmonix/musicmain/bottomnavbar.dart';
+import 'package:harmonix/radiofront/radiopage.dart';
 
 import 'package:harmonix/settings/setting_page.dart';
 import 'package:harmonix/screens/welcome.dart';
@@ -40,8 +41,9 @@ class _MyAppState extends State<MyApp> {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Welcome(),
+     home: Welcome(),
 //home: HomeScreen(onThemeChanged: _toggleTheme),
+    //  home: RadioPage(),
        //home: bottomnav(),
       // home: SettingsPage(
       //   username: username,

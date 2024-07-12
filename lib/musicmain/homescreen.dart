@@ -1,21 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:harmonix/app_drawer.dart';
 import 'package:harmonix/section_title.dart';
+//import 'package:harmonix/services/sharedpref.dart';
 import 'package:harmonix/song_list.dart';
 //import 'package:home_page/widgets/section_title.dart';
 //import 'package:home_page/widgets/song_list.dart';
 //import 'package:home_page/screens/app_drawer.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   final Function(bool) onThemeChanged;
 
   HomeScreen({required this.onThemeChanged});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  //  String? name;
+  // getthesharedpref() async {
+  //   name = await SharedPreferenceHelper().getUserName();
+  //   //image = await SharedPreferenceHelper().getUserImage();
+  //   setState(() {});
+  // }
+
+  // ontheload() async {
+  //   await getthesharedpref();
+  //   setState(() {});
+  // }
+
+  // @override
+  // void initState() {
+  //   ontheload();
+  //   super.initState();
+  // }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Welcome User'),
+        // title: name == null
+        //     ? Center(child: CircularProgressIndicator())
+        //     :
+         title:   Text("Welcome" ),
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(60.0),
           child: Padding(
@@ -33,15 +60,16 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       drawer: AppDrawer(
-        onThemeChanged: onThemeChanged,
+        onThemeChanged: widget.onThemeChanged,
         username: 'user123',
         email: 'user@example.com',
         password: 'password123',
         toggleTheme: (bool value) {
-          onThemeChanged(value);
+          widget.onThemeChanged(value);
         },
       ),
-      body: SingleChildScrollView(
+      body: 
+       SingleChildScrollView(
         padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
