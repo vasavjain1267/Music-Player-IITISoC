@@ -8,6 +8,8 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_any_logo/flutter_logo.dart';
 import 'package:harmonix/screens/login.dart';
+import 'package:harmonix/screens/loginpage.dart';
+import 'package:harmonix/screens/signpage.dart';
 import 'package:harmonix/screens/signup.dart';
 
 class Welcome extends StatefulWidget {
@@ -203,15 +205,19 @@ class _WelcomeState extends State<Welcome> {
                             ])),
                         child: Center(
                           child: GestureDetector(
+                            // onTap: () {
+                            //   showModalBottomSheet(
+                            //       backgroundColor:
+                            //           Color.fromARGB(255, 70, 67, 64),
+                            //       scrollControlDisabledMaxHeightRatio: 9,
+                            //       context: context,
+                            //       builder: (context) {
+                            //         return LogIn();
+                            //       });
+                            // },
                             onTap: () {
-                              showModalBottomSheet(
-                                  backgroundColor:
-                                      Color.fromARGB(255, 70, 67, 64),
-                                  scrollControlDisabledMaxHeightRatio: 9,
-                                  context: context,
-                                  builder: (context) {
-                                    return LogIn();
-                                  });
+                               Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => LogPage()));
                             },
                             child: Text(
                               "LogIn",
@@ -236,15 +242,19 @@ class _WelcomeState extends State<Welcome> {
                         ),
                         child: Center(
                           child: GestureDetector(
+                            // onTap: () {
+                            //   showModalBottomSheet(
+                            //       scrollControlDisabledMaxHeightRatio: 9,
+                            //       backgroundColor:
+                            //           Color.fromARGB(255, 70, 67, 64),
+                            //       context: context,
+                            //       builder: (context) {
+                            //         return SignUp();
+                            //       });
+                            // },
                             onTap: () {
-                              showModalBottomSheet(
-                                  scrollControlDisabledMaxHeightRatio: 9,
-                                  backgroundColor:
-                                      Color.fromARGB(255, 70, 67, 64),
-                                  context: context,
-                                  builder: (context) {
-                                    return SignUp();
-                                  });
+                               Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => SignPage()));
                             },
                             child: Text(
                               "SignUp",

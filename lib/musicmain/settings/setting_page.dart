@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:harmonix/screens/welcome.dart';
 
 import 'package:harmonix/settings/privacy_policy_page.dart';
@@ -68,7 +67,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
 Your app data will also be deleted and you won't be able to retrieve it.
 
-After deleting your account, you must log out.'''),
+Since this is a security-sensitive operation, you eventually are asked to login before your account can be deleted.'''),
           actions: [
             TextButton(
               child: const Text('Cancel'),
@@ -84,9 +83,8 @@ After deleting your account, you must log out.'''),
               onPressed: () {
                 // Call the delete account function
                 deleteUserAccount();
-                // Navigator.pushReplacement(context,
-                //     MaterialPageRoute(builder: (context) => Welcome()));
-                Navigator.pop(context);
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => Welcome()));
               },
             ),
           ],
@@ -135,8 +133,6 @@ After deleting your account, you must log out.'''),
     await auth.signOut();
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => Welcome()));
-
-    //Navigator.pop(context);
   }
 
   @override

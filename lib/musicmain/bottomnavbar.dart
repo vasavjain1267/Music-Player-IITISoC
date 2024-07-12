@@ -4,9 +4,10 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 import 'package:flutter/material.dart';
 
-import 'package:harmonix/musicmain.dart/home.dart';
-import 'package:harmonix/musicmain.dart/library.dart';
-import 'package:harmonix/musicmain.dart/radio.dart';
+import 'package:harmonix/musicmain/homescreen.dart';
+import 'package:harmonix/musicmain/library.dart';
+//import 'package:harmonix/musicmain/radio.dart';
+import 'package:harmonix/radiofront/radiopage.dart';
 import 'package:harmonix/settings/setting_page.dart';
 
 class bottomnav extends StatefulWidget {
@@ -18,7 +19,7 @@ class bottomnav extends StatefulWidget {
 
 class _bottomnavState extends State<bottomnav> {
   late List<Widget> pages;
-  late HomePage Home;
+  late HomeScreen homescreen;
   late SettingsPage Settings;
   late LibraryPage Library;
   late RadioPage Radio;
@@ -27,7 +28,7 @@ class _bottomnavState extends State<bottomnav> {
 
   @override
   void initState() {
-    Home = HomePage();
+    homescreen = HomeScreen(onThemeChanged: _toggleTheme,);
     Library = LibraryPage();
     Radio = RadioPage();
     Settings = SettingsPage(
@@ -37,7 +38,7 @@ class _bottomnavState extends State<bottomnav> {
       toggleTheme: _toggleTheme,
     );
 
-    pages = [Home, Library, Radio, Settings];
+    pages = [homescreen, Library, Radio, Settings];
     super.initState();
   }
 
@@ -57,7 +58,7 @@ class _bottomnavState extends State<bottomnav> {
     return Scaffold(
       bottomNavigationBar: CurvedNavigationBar(
           height: 70,
-          backgroundColor: Color.fromARGB(255, 139, 119, 6),
+          backgroundColor: Color.fromARGB(255, 139, 119, 5),
           color: Color.fromARGB(255, 15, 15, 15),
           animationCurve: Curves.easeInOutExpo,
           animationDuration: Duration(milliseconds: 500),
