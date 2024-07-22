@@ -3,6 +3,9 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 import 'package:flutter/material.dart';
+import 'package:harmonix/mainmusic/pages/home_screen.dart';
+import 'package:harmonix/mainmusic/pages/library_page.dart';
+import 'package:harmonix/mainmusic/pages/song_list_page.dart';
 
 import 'package:harmonix/musicmain/homescreen.dart';
 import 'package:harmonix/musicmain/library.dart';
@@ -19,7 +22,7 @@ class bottomnav extends StatefulWidget {
 
 class _bottomnavState extends State<bottomnav> {
   late List<Widget> pages;
-  late HomeScreen homescreen;
+  late SongListPage homescreen;
   late SettingsPage Settings;
   late LibraryPage Library;
   late RadioPage Radio;
@@ -28,7 +31,7 @@ class _bottomnavState extends State<bottomnav> {
 
   @override
   void initState() {
-    homescreen = HomeScreen(onThemeChanged: _toggleTheme,);
+    homescreen = SongListPage();
     Library = LibraryPage();
     Radio = RadioPage();
     Settings = SettingsPage(
