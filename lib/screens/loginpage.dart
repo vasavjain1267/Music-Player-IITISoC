@@ -137,7 +137,7 @@ class _LogPageState extends State<LogPage> {
         ),
         body: SingleChildScrollView(
           child: Container(
-              width: 408,
+              width: MediaQuery.of(context).size.width,
               child: Form(
                 key: _formkey,
                 child: Column(
@@ -207,7 +207,7 @@ class _LogPageState extends State<LogPage> {
                     Row(
                       children: [
                         SizedBox(
-                          width: 25,
+                          width: MediaQuery.of(context).size.width / 10,
                         ),
                         Text(
                           "Email",
@@ -224,10 +224,10 @@ class _LogPageState extends State<LogPage> {
                     Row(
                       children: [
                         SizedBox(
-                          width: 23,
+                          width: MediaQuery.of(context).size.width / 10,
                         ),
                         Container(
-                            width: 320,
+                            width: MediaQuery.of(context).size.width / 1.35,
                             height: 40,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(40),
@@ -261,7 +261,7 @@ class _LogPageState extends State<LogPage> {
                     Row(
                       children: [
                         SizedBox(
-                          width: 25,
+                          width: MediaQuery.of(context).size.width / 10,
                         ),
                         Text(
                           "Password",
@@ -278,10 +278,10 @@ class _LogPageState extends State<LogPage> {
                     Row(
                       children: [
                         SizedBox(
-                          width: 23,
+                          width: MediaQuery.of(context).size.width / 10,
                         ),
                         Container(
-                            width: 320,
+                            width: MediaQuery.of(context).size.width / 1.35,
                             height: 40,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(40),
@@ -332,7 +332,7 @@ class _LogPageState extends State<LogPage> {
                     Row(
                       children: [
                         SizedBox(
-                          width: 60,
+                          width: MediaQuery.of(context).size.width / 7,
                         ),
                         GestureDetector(
                           onTap: () {
@@ -345,7 +345,7 @@ class _LogPageState extends State<LogPage> {
                             userLogin();
                           },
                           child: Container(
-                            width: 280,
+                            width: MediaQuery.of(context).size.width / 1.5,
                             height: 40,
                             decoration: BoxDecoration(
                                 color: Color.fromARGB(255, 177, 113, 40),
@@ -374,7 +374,7 @@ class _LogPageState extends State<LogPage> {
                     Row(
                       children: [
                         SizedBox(
-                          width: 120,
+                          width: MediaQuery.of(context).size.width / 3.2,
                         ),
                         GestureDetector(
                           onTap: () {
@@ -399,7 +399,7 @@ class _LogPageState extends State<LogPage> {
                     Row(
                       children: [
                         SizedBox(
-                          width: 45,
+                          width: MediaQuery.of(context).size.width / 9,
                         ),
                         Text(
                           "--------- OR ---------",
@@ -414,7 +414,7 @@ class _LogPageState extends State<LogPage> {
                     Row(
                       children: [
                         SizedBox(
-                          width: 150,
+                          width: MediaQuery.of(context).size.width / 2.7,
                         ),
                         Text(
                           "Sign in with",
@@ -485,7 +485,7 @@ class _LogPageState extends State<LogPage> {
                     Row(
                       children: [
                         SizedBox(
-                          width: 130,
+                          width: MediaQuery.of(context).size.width / 3.2,
                         ),
                         Text(
                           "First time? ",

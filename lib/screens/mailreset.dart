@@ -33,25 +33,26 @@ class _MailresetState extends State<Mailreset> {
       }
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:  AppBar(
-          backgroundColor: Colors.black,
-          leading: GestureDetector(
-              onTap: () {
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => Welcome()));
-              },
-              child: Icon(
-                Icons.arrow_back_outlined,
-                size: 40,
-                color: Color.fromARGB(255, 214, 148, 5),
-              )),
-        ),
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        leading: GestureDetector(
+            onTap: () {
+              Navigator.pushReplacement(
+                  context, MaterialPageRoute(builder: (context) => Welcome()));
+            },
+            child: Icon(
+              Icons.arrow_back_outlined,
+              size: 40,
+              color: Color.fromARGB(255, 214, 148, 5),
+            )),
+      ),
       body: SingleChildScrollView(
         child: Container(
-            width: 408,
+            width: MediaQuery.of(context).size.width,
             child: Form(
               key: _formkey,
               child: Column(
@@ -73,7 +74,7 @@ class _MailresetState extends State<Mailreset> {
                   Row(
                     children: [
                       SizedBox(
-                        width: 25,
+                        width: MediaQuery.of(context).size.width / 10,
                       ),
                       Text(
                         " Mail",
@@ -90,23 +91,24 @@ class _MailresetState extends State<Mailreset> {
                   Row(
                     children: [
                       SizedBox(
-                        width: 23,
+                        width: MediaQuery.of(context).size.width / 10,
                       ),
                       Container(
-                          width: 320,
+                          width: MediaQuery.of(context).size.width / 1.35,
                           height: 40,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(40),
                               border: Border.all(
-                                  color: const Color.fromARGB(255, 197, 141, 56))),
+                                  color:
+                                      const Color.fromARGB(255, 197, 141, 56))),
                           child: TextFormField(
                             validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Please Enter Email';
-                                }
-                                return null;
-                              },
-                              controller: mailcontroller,
+                              if (value == null || value.isEmpty) {
+                                return 'Please Enter Email';
+                              }
+                              return null;
+                            },
+                            controller: mailcontroller,
                             textAlign: TextAlign.center,
                             decoration: InputDecoration(
                                 border: InputBorder.none,
@@ -124,17 +126,17 @@ class _MailresetState extends State<Mailreset> {
                   Row(
                     children: [
                       SizedBox(
-                        width: 60,
+                        width: MediaQuery.of(context).size.width / 7,
                       ),
                       GestureDetector(
-                         onTap: () {
-                              if(_formkey.currentState!.validate()){
-                                setState(() {
-                                  email=mailcontroller.text;
-                                });
-                                resetPassword();
-                              }
-                            },
+                        onTap: () {
+                          if (_formkey.currentState!.validate()) {
+                            setState(() {
+                              email = mailcontroller.text;
+                            });
+                            resetPassword();
+                          }
+                        },
                         child: Container(
                           width: 280,
                           height: 40,

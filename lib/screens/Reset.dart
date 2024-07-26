@@ -31,7 +31,7 @@ class _ResetState extends State<Reset> {
         ),
         body: SingleChildScrollView(
           child: Container(
-              width: 408,
+              width: MediaQuery.of(context).size.width,
               child: Column(
                 children: [
                   Icon(
@@ -63,7 +63,7 @@ class _ResetState extends State<Reset> {
                     //         return Mailreset();
                     //       });
                     // },
-                     onTap: () {
+                    onTap: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => Mailreset()));
                     },
@@ -117,67 +117,67 @@ class _ResetState extends State<Reset> {
                   SizedBox(
                     height: 20,
                   ),
-                  GestureDetector(
-                    // onTap: () {
-                    //   showModalBottomSheet(
-                    //       scrollControlDisabledMaxHeightRatio: 9,
-                    //       backgroundColor: Color.fromARGB(255, 70, 67, 64),
-                    //       context: context,
-                    //       builder: (context) {
-                    //         return Otpreset();
-                    //       });
-                    // },
-                    onTap: () {
-              Navigator.pushReplacement(
-                  context, MaterialPageRoute(builder: (context) => Otp()));
-            },
-                    child: Container(
-                      margin: EdgeInsets.symmetric(
-                        horizontal: 20,
-                      ),
-                      padding: EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                          color: Color.fromARGB(206, 53, 46, 46),
-                          borderRadius: BorderRadius.circular(25)),
-                      child: Row(
-                        children: [
-                          Column(
-                            children: [
-                              Icon(
-                                Icons.phone,
-                                size: 85,
-                                color: const Color.fromARGB(255, 126, 99, 4),
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            width: 15,
-                          ),
-                          Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Phone",
-                                    style: TextStyle(fontSize: 23),
-                                  )
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  Text(
-                                    "Reset via O.T.P verification",
-                                    style: TextStyle(fontSize: 16),
-                                  )
-                                ],
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  )
+                  //       GestureDetector(
+                  //         // onTap: () {
+                  //         //   showModalBottomSheet(
+                  //         //       scrollControlDisabledMaxHeightRatio: 9,
+                  //         //       backgroundColor: Color.fromARGB(255, 70, 67, 64),
+                  //         //       context: context,
+                  //         //       builder: (context) {
+                  //         //         return Otpreset();
+                  //         //       });
+                  //         // },
+                  //         onTap: () {
+                  //   Navigator.pushReplacement(
+                  //       context, MaterialPageRoute(builder: (context) => Otp()));
+                  // },
+                  //         child: Container(
+                  //           margin: EdgeInsets.symmetric(
+                  //             horizontal: 20,
+                  //           ),
+                  //           padding: EdgeInsets.all(8),
+                  //           decoration: BoxDecoration(
+                  //               color: Color.fromARGB(206, 53, 46, 46),
+                  //               borderRadius: BorderRadius.circular(25)),
+                  //           child: Row(
+                  //             children: [
+                  //               Column(
+                  //                 children: [
+                  //                   Icon(
+                  //                     Icons.phone,
+                  //                     size: 85,
+                  //                     color: const Color.fromARGB(255, 126, 99, 4),
+                  //                   )
+                  //                 ],
+                  //               ),
+                  //               SizedBox(
+                  //                 width: 15,
+                  //               ),
+                  //               Column(
+                  //                 children: [
+                  //                   Row(
+                  //                     mainAxisAlignment: MainAxisAlignment.start,
+                  //                     children: [
+                  //                       Text(
+                  //                         "Phone",
+                  //                         style: TextStyle(fontSize: 23),
+                  //                       )
+                  //                     ],
+                  //                   ),
+                  //                   Row(
+                  //                     children: [
+                  //                       Text(
+                  //                         "Reset via O.T.P verification",
+                  //                         style: TextStyle(fontSize: 16),
+                  //                       )
+                  //                     ],
+                  //                   )
+                  //                 ],
+                  //               )
+                  //             ],
+                  //           ),
+                  //         ),
+                  //       )
                 ],
               )),
         ),

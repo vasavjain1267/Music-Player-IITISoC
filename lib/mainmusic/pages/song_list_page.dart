@@ -55,7 +55,6 @@ class _SongListPageState extends State<SongListPage> {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
-        
         onPressed: () {
           Navigator.push(
             context,
@@ -88,7 +87,7 @@ class _SongListPageState extends State<SongListPage> {
         height: double.maxFinite,
         decoration: BoxDecoration(
             gradient: LinearGradient(
-                colors: [Colors.deepPurpleAccent, Colors.purple],
+                colors: [Colors.black, Colors.blue],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight)),
         child: Column(

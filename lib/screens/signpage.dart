@@ -16,7 +16,6 @@ class SignPage extends StatefulWidget {
 }
 
 class _SignPageState extends State<SignPage> {
-
   // String email = "", password = "", name = "";
   // TextEditingController namecontroller = new TextEditingController();
   // TextEditingController passwordcontroller = new TextEditingController();
@@ -56,7 +55,7 @@ class _SignPageState extends State<SignPage> {
   //     }
   //   }
   // }
-   String email = "", password = "", name = "";
+  String email = "", password = "", name = "";
   bool _isLoading = false;
   bool _passwordVisible = false;
 
@@ -67,7 +66,9 @@ class _SignPageState extends State<SignPage> {
   final _formkey = GlobalKey<FormState>();
 
   registration() async {
-    if (passwordcontroller.text.isNotEmpty && namecontroller.text.isNotEmpty && mailcontroller.text.isNotEmpty) {
+    if (passwordcontroller.text.isNotEmpty &&
+        namecontroller.text.isNotEmpty &&
+        mailcontroller.text.isNotEmpty) {
       setState(() {
         _isLoading = true;
       });
@@ -103,11 +104,10 @@ class _SignPageState extends State<SignPage> {
                 style: TextStyle(fontSize: 18.0),
               )));
         }
-        
       }
-      
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -124,7 +124,7 @@ class _SignPageState extends State<SignPage> {
               color: Color.fromARGB(255, 214, 148, 6),
             )),
       ),
-      body:_isLoading
+      body: _isLoading
           ? Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -136,365 +136,365 @@ class _SignPageState extends State<SignPage> {
               ),
             )
           : SingleChildScrollView(
-      child: Container(
-          width: 408,
-          child: Form(
-            key: _formkey,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  "Get Started",
-                  style: TextStyle(
-                      fontFamily: "DancingScript",
-                      fontSize: 52,
-                      fontWeight: FontWeight.w800,
-                      color: Colors.white),
-                ),
-                SizedBox(
-                  height: 18,
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 25,
-                    ),
-                    Text(
-                      "Name",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontFamily: "Merriweather"),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 4,
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 23,
-                    ),
-                    Container(
-                        width: 320,
-                        height: 40,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(40),
-                            border: Border.all(
-                                color:
-                                    const Color.fromARGB(255, 197, 141, 56))),
-                        child: TextFormField(
-
-                           validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please Enter Name';
-                          }
-                          return null;
-                        },
-                        controller: namecontroller,
-                          
-                          textAlign: TextAlign.center,
-                          decoration: InputDecoration(
-                              prefixIcon: Icon(Icons.person),
-                              border: InputBorder.none,
-                              hintText: 'Enter your name',
-                              hintStyle: TextStyle(
-                                  //fontFamily: "Merriweather",
-                                  color: Color.fromARGB(66, 218, 212, 212),
-                                  fontSize: 21)),
-                        ))
-                  ],
-                ),
-                SizedBox(
-                  height: 18,
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 25,
-                    ),
-                    Text(
-                      "Email",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontFamily: "Merriweather"),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 4,
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 23,
-                    ),
-                    Container(
-                        width: 320,
-                        height: 40,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(40),
-                            border: Border.all(
-                                color:
-                                    const Color.fromARGB(255, 197, 141, 56))),
-                        child: TextFormField(
-
-                          validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please Enter Email';
-                          }
-                          return null;
-                        },
-                        controller: mailcontroller,
-                          
-                          textAlign: TextAlign.center,
-                          decoration: InputDecoration(
-                              prefixIcon: Icon(Icons.mail),
-                              border: InputBorder.none,
-                              hintText: 'Enter your email',
-                              hintStyle: TextStyle(
-                                  //fontFamily: "Merriweather",
-                                  color: Color.fromARGB(66, 218, 212, 212),
-                                  fontSize: 21)),
-                        ))
-                  ],
-                ),
-                SizedBox(
-                  height: 18,
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 25,
-                    ),
-                    Text(
-                      "Password",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontFamily: "Merriweather"),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 4,
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 23,
-                    ),
-                    Container(
-                        width: 320,
-                        height: 40,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(40),
-                            border: Border.all(
-                                color:
-                                    const Color.fromARGB(255, 197, 141, 56))),
-                        child: TextFormField(
-
-                           validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please Enter Password';
-                          }
-                          return null;
-                        },
-                        controller: passwordcontroller,
-                           obscureText: !_passwordVisible,
-                          textAlignVertical: TextAlignVertical.center,
-                          textAlign: TextAlign.center,
-                          decoration: InputDecoration(
-                              
-                              border: InputBorder.none,
-                               prefixIcon: IconButton(
-                                  icon: Icon(
-                                    _passwordVisible
-                                        ? Icons.visibility
-                                        : Icons.visibility_off,
-                                    color: Color(0xFFb2b7bf),
-                                  ),
-                                  onPressed: () {
-                                    setState(() {
-                                      _passwordVisible = !_passwordVisible;
-                                    });
+              child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Form(
+                    key: _formkey,
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Text(
+                          "Get Started",
+                          style: TextStyle(
+                              fontFamily: "DancingScript",
+                              fontSize: 52,
+                              fontWeight: FontWeight.w800,
+                              color: Colors.white),
+                        ),
+                        SizedBox(
+                          height: 18,
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 10,
+                            ),
+                            Text(
+                              "Name",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontFamily: "Merriweather"),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 4,
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 10,
+                            ),
+                            Container(
+                                width: MediaQuery.of(context).size.width / 1.35,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(40),
+                                    border: Border.all(
+                                        color: const Color.fromARGB(
+                                            255, 197, 141, 56))),
+                                child: TextFormField(
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please Enter Name';
+                                    }
+                                    return null;
                                   },
+                                  controller: namecontroller,
+                                  textAlign: TextAlign.center,
+                                  decoration: InputDecoration(
+                                      prefixIcon: Icon(Icons.person),
+                                      border: InputBorder.none,
+                                      hintText: 'Enter your name',
+                                      hintStyle: TextStyle(
+                                          //fontFamily: "Merriweather",
+                                          color:
+                                              Color.fromARGB(66, 218, 212, 212),
+                                          fontSize: 21)),
+                                ))
+                          ],
+                        ),
+                        SizedBox(
+                          height: 18,
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 10,
+                            ),
+                            Text(
+                              "Email",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontFamily: "Merriweather"),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 4,
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 10,
+                            ),
+                            Container(
+                                width: MediaQuery.of(context).size.width / 1.35,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(40),
+                                    border: Border.all(
+                                        color: const Color.fromARGB(
+                                            255, 197, 141, 56))),
+                                child: TextFormField(
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please Enter Email';
+                                    }
+                                    return null;
+                                  },
+                                  controller: mailcontroller,
+                                  textAlign: TextAlign.center,
+                                  decoration: InputDecoration(
+                                      prefixIcon: Icon(Icons.mail),
+                                      border: InputBorder.none,
+                                      hintText: 'Enter your email',
+                                      hintStyle: TextStyle(
+                                          //fontFamily: "Merriweather",
+                                          color:
+                                              Color.fromARGB(66, 218, 212, 212),
+                                          fontSize: 21)),
+                                ))
+                          ],
+                        ),
+                        SizedBox(
+                          height: 18,
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 10,
+                            ),
+                            Text(
+                              "Password",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontFamily: "Merriweather"),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 4,
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 10,
+                            ),
+                            Container(
+                                width: MediaQuery.of(context).size.width / 1.35,
+                                height: 40,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(40),
+                                    border: Border.all(
+                                        color: const Color.fromARGB(
+                                            255, 197, 141, 56))),
+                                child: TextFormField(
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please Enter Password';
+                                    }
+                                    return null;
+                                  },
+                                  controller: passwordcontroller,
+                                  obscureText: !_passwordVisible,
+                                  textAlignVertical: TextAlignVertical.center,
+                                  textAlign: TextAlign.center,
+                                  decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      prefixIcon: IconButton(
+                                        icon: Icon(
+                                          _passwordVisible
+                                              ? Icons.visibility
+                                              : Icons.visibility_off,
+                                          color: Color(0xFFb2b7bf),
+                                        ),
+                                        onPressed: () {
+                                          setState(() {
+                                            _passwordVisible =
+                                                !_passwordVisible;
+                                          });
+                                        },
+                                      ),
+                                      hintText: 'Enter your password',
+                                      hintStyle: TextStyle(
+                                          //fontFamily: "Merriweather",
+                                          color:
+                                              Color.fromARGB(66, 218, 212, 212),
+                                          fontSize: 21)),
+                                ))
+                          ],
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 7.2,
+                            ),
+                            Container(
+                              width: MediaQuery.of(context).size.width / 1.5,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                  color: Color.fromARGB(255, 177, 113, 40),
+                                  borderRadius: BorderRadius.circular(40),
+                                  gradient: LinearGradient(colors: [
+                                    Color.fromARGB(255, 212, 164, 101),
+                                    Color.fromARGB(255, 219, 135, 24)
+                                  ])),
+                              child: Center(
+                                child: GestureDetector(
+                                  onTap: () {
+                                    if (_formkey.currentState!.validate()) {
+                                      setState(() {
+                                        email = mailcontroller.text;
+                                        name = namecontroller.text;
+                                        password = passwordcontroller.text;
+                                      });
+                                    }
+                                    registration();
+                                  },
+                                  child: Text(
+                                    "Sign Up",
+                                    style: TextStyle(
+                                        color:
+                                            Color.fromARGB(255, 238, 237, 235),
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.w400,
+                                        fontFamily: "Merriweather"),
+                                  ),
                                 ),
-                              hintText: 'Enter your password',
-                              hintStyle: TextStyle(
-                                  //fontFamily: "Merriweather",
-                                  color: Color.fromARGB(66, 218, 212, 212),
-                                  fontSize: 21)),
-                        ))
-                  ],
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 60,
-                    ),
-                    Container(
-                      width: 280,
-                      height: 40,
-                      decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 177, 113, 40),
-                          borderRadius: BorderRadius.circular(40),
-                          gradient: LinearGradient(colors: [
-                            Color.fromARGB(255, 212, 164, 101),
-                            Color.fromARGB(255, 219, 135, 24)
-                          ])),
-                      child: Center(
-                        child: GestureDetector(
-                          
-                          onTap: () {
-                            if(_formkey.currentState!.validate()){
-                          setState(() {
-                            email=mailcontroller.text;
-                            name= namecontroller.text;
-                            password=passwordcontroller.text;
-                          });
-                        }
-                        registration();
-                          },
-                          child: Text(
-                            "Sign Up",
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 238, 237, 235),
-                                fontSize: 24,
-                                fontWeight: FontWeight.w400,
-                                fontFamily: "Merriweather"),
-                          ),
+                              ),
+                            )
+                          ],
                         ),
-                      ),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 25,
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 45,
-                    ),
-                    Text(
-                      "--------- OR ---------",
-                      style:
-                          TextStyle(fontSize: 23, fontFamily: "Merriweather"),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 17,
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 150,
-                    ),
-                    Text(
-                      "Sign in with",
-                      style:
-                          TextStyle(fontSize: 18, fontFamily: "Merriweather"),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Row(
-                  children: [
-                    SizedBox(width: 85),
-                    Container(
-                      height: 70,
-                      width: 70,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(13),
-                          gradient: LinearGradient(colors: [
-                            Color.fromARGB(255, 212, 164, 101),
-                            Color.fromARGB(255, 219, 135, 24)
-                          ])),
-                      child: AnyLogo.media.facebook.image(),
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    Container(
-                      height: 70,
-                      width: 70,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(13),
-                          gradient: LinearGradient(colors: [
-                            Color.fromARGB(255, 212, 164, 101),
-                            Color.fromARGB(255, 219, 135, 24)
-                          ])),
-                      child: AnyLogo.media.gmail.image(),
-                      // color: Colors.white,
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    Container(
-                      height: 70,
-                      width: 70,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(13),
-                          gradient: LinearGradient(colors: [
-                            Color.fromARGB(255, 212, 164, 101),
-                            Color.fromARGB(255, 219, 135, 24)
-                          ])),
-                      child: AnyLogo.media.instagram.image(),
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: 70,
-                    ),
-                    Text(
-                      "Already have an account? ",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: "Merriweather",
-                          fontSize: 18),
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => LogPage()));
-                      },
-                      child: Text(
-                        " Log In",
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 218, 101, 7),
-                          fontFamily: "Merriweather",
-                          fontSize: 18,
+                        SizedBox(
+                          height: 25,
                         ),
-                      ),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 40,
-                ),
-              ],
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 8,
+                            ),
+                            Text(
+                              "--------- OR ---------",
+                              style: TextStyle(
+                                  fontSize: 23, fontFamily: "Merriweather"),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 17,
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 2.7,
+                            ),
+                            Text(
+                              "Sign in with",
+                              style: TextStyle(
+                                  fontSize: 18, fontFamily: "Merriweather"),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(width: 85),
+                            Container(
+                              height: 70,
+                              width: 70,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(13),
+                                  gradient: LinearGradient(colors: [
+                                    Color.fromARGB(255, 212, 164, 101),
+                                    Color.fromARGB(255, 219, 135, 24)
+                                  ])),
+                              child: AnyLogo.media.facebook.image(),
+                            ),
+                            SizedBox(
+                              width: 15,
+                            ),
+                            Container(
+                              height: 70,
+                              width: 70,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(13),
+                                  gradient: LinearGradient(colors: [
+                                    Color.fromARGB(255, 212, 164, 101),
+                                    Color.fromARGB(255, 219, 135, 24)
+                                  ])),
+                              child: AnyLogo.media.gmail.image(),
+                              // color: Colors.white,
+                            ),
+                            SizedBox(
+                              width: 15,
+                            ),
+                            Container(
+                              height: 70,
+                              width: 70,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(13),
+                                  gradient: LinearGradient(colors: [
+                                    Color.fromARGB(255, 212, 164, 101),
+                                    Color.fromARGB(255, 219, 135, 24)
+                                  ])),
+                              child: AnyLogo.media.instagram.image(),
+                            ),
+                            SizedBox(
+                              width: 15,
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 7,
+                            ),
+                            Text(
+                              "Already have an account? ",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: "Merriweather",
+                                  fontSize: 18),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => LogPage()));
+                              },
+                              child: Text(
+                                " Log In",
+                                style: TextStyle(
+                                  color: Color.fromARGB(255, 218, 101, 7),
+                                  fontFamily: "Merriweather",
+                                  fontSize: 18,
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                        SizedBox(
+                          height: 40,
+                        ),
+                      ],
+                    ),
+                  )),
             ),
-          )),
-    ) ,
     );
   }
 }
