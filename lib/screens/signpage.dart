@@ -1,12 +1,9 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_any_logo/flutter_logo.dart';
-import 'package:harmonix/musicmain/bottomnavbar.dart';
 import 'package:harmonix/screens/loginpage.dart';
-import 'package:harmonix/screens/signup.dart';
 import 'package:harmonix/screens/welcome.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class SignPage extends StatefulWidget {
   const SignPage({super.key});
@@ -16,94 +13,42 @@ class SignPage extends StatefulWidget {
 }
 
 class _SignPageState extends State<SignPage> {
-  // String email = "", password = "", name = "";
-  // TextEditingController namecontroller = new TextEditingController();
-  // TextEditingController passwordcontroller = new TextEditingController();
-  // TextEditingController mailcontroller = new TextEditingController();
-
-  //  final _formkey = GlobalKey<FormState>();
-
-  // registration() async {
-  //   if (password != null&& namecontroller.text!=""&& mailcontroller.text!="") {
-  //     try {
-  //       UserCredential userCredential = await FirebaseAuth.instance
-  //           .createUserWithEmailAndPassword(email: email, password: password);
-  //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-  //           content: Text(
-  //         "Registered Successfully",
-  //         style: TextStyle(fontSize: 20.0),
-  //       )));
-  //       // ignore: use_build_context_synchronously
-  //       Navigator.push(
-  //           context, MaterialPageRoute(builder: (context) => bottomnav()));
-  //     } on FirebaseAuthException catch (e) {
-  //       if (e.code == 'weak-password') {
-  //         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-  //             backgroundColor: Colors.orangeAccent,
-  //             content: Text(
-  //               "Password Provided is too Weak",
-  //               style: TextStyle(fontSize: 18.0),
-  //             )));
-  //       } else if (e.code == "email-already-in-use") {
-  //         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-  //             backgroundColor: Colors.orangeAccent,
-  //             content: Text(
-  //               "Account Already exists",
-  //               style: TextStyle(fontSize: 18.0),
-  //             )));
-  //       }
-  //     }
-  //   }
-  // }
-  String email = "", password = "", name = "";
   bool _isLoading = false;
   bool _passwordVisible = false;
+  final _formKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
-  TextEditingController namecontroller = TextEditingController();
-  TextEditingController passwordcontroller = TextEditingController();
-  TextEditingController mailcontroller = TextEditingController();
-
-  final _formkey = GlobalKey<FormState>();
-
-  registration() async {
-    if (passwordcontroller.text.isNotEmpty &&
-        namecontroller.text.isNotEmpty &&
-        mailcontroller.text.isNotEmpty) {
+  Future<void> _register() async {
+    if (_formKey.currentState!.validate()) {
       setState(() {
         _isLoading = true;
       });
       try {
-        // ignore: unused_local_variable
-        UserCredential userCredential = await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(email: email, password: password);
-        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text(
-          "Registered Successfully",
-          style: TextStyle(fontSize: 20.0),
-        )));
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => bottomnav()),
+        UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: _emailController.text,
+          password: _passwordController.text,
         );
+        User? user = userCredential.user;
+
+        if (user != null) {
+          await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+            'name': _nameController.text,
+            'email': _emailController.text,
+          });
+        }
+        
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => Welcome()));
       } on FirebaseAuthException catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(e.message ?? 'Registration failed'),
+        ));
+      } finally {
         setState(() {
           _isLoading = false;
         });
-        if (e.code == 'weak-password') {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              backgroundColor: Colors.orangeAccent,
-              content: Text(
-                "Password Provided is too Weak",
-                style: TextStyle(fontSize: 18.0),
-              )));
-        } else if (e.code == "email-already-in-use") {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              backgroundColor: Colors.orangeAccent,
-              content: Text(
-                "Account Already exists",
-                style: TextStyle(fontSize: 18.0),
-              )));
-        }
       }
     }
   }
@@ -139,7 +84,7 @@ class _SignPageState extends State<SignPage> {
               child: Container(
                   width: MediaQuery.of(context).size.width,
                   child: Form(
-                    key: _formkey,
+                    key: _formKey,
                     child: Column(
                       children: [
                         SizedBox(
@@ -187,22 +132,20 @@ class _SignPageState extends State<SignPage> {
                                         color: const Color.fromARGB(
                                             255, 197, 141, 56))),
                                 child: TextFormField(
+                                  controller: _nameController,
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Please Enter Name';
                                     }
                                     return null;
                                   },
-                                  controller: namecontroller,
                                   textAlign: TextAlign.center,
                                   decoration: InputDecoration(
                                       prefixIcon: Icon(Icons.person),
                                       border: InputBorder.none,
                                       hintText: 'Enter your name',
                                       hintStyle: TextStyle(
-                                          //fontFamily: "Merriweather",
-                                          color:
-                                              Color.fromARGB(66, 218, 212, 212),
+                                          color: Color.fromARGB(66, 218, 212, 212),
                                           fontSize: 21)),
                                 ))
                           ],
@@ -241,22 +184,20 @@ class _SignPageState extends State<SignPage> {
                                         color: const Color.fromARGB(
                                             255, 197, 141, 56))),
                                 child: TextFormField(
+                                  controller: _emailController,
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Please Enter Email';
                                     }
                                     return null;
                                   },
-                                  controller: mailcontroller,
                                   textAlign: TextAlign.center,
                                   decoration: InputDecoration(
                                       prefixIcon: Icon(Icons.mail),
                                       border: InputBorder.none,
                                       hintText: 'Enter your email',
                                       hintStyle: TextStyle(
-                                          //fontFamily: "Merriweather",
-                                          color:
-                                              Color.fromARGB(66, 218, 212, 212),
+                                          color: Color.fromARGB(66, 218, 212, 212),
                                           fontSize: 21)),
                                 ))
                           ],
@@ -295,13 +236,13 @@ class _SignPageState extends State<SignPage> {
                                         color: const Color.fromARGB(
                                             255, 197, 141, 56))),
                                 child: TextFormField(
+                                  controller: _passwordController,
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Please Enter Password';
                                     }
                                     return null;
                                   },
-                                  controller: passwordcontroller,
                                   obscureText: !_passwordVisible,
                                   textAlignVertical: TextAlignVertical.center,
                                   textAlign: TextAlign.center,
@@ -316,16 +257,13 @@ class _SignPageState extends State<SignPage> {
                                         ),
                                         onPressed: () {
                                           setState(() {
-                                            _passwordVisible =
-                                                !_passwordVisible;
+                                            _passwordVisible = !_passwordVisible;
                                           });
                                         },
                                       ),
                                       hintText: 'Enter your password',
                                       hintStyle: TextStyle(
-                                          //fontFamily: "Merriweather",
-                                          color:
-                                              Color.fromARGB(66, 218, 212, 212),
+                                          color: Color.fromARGB(66, 218, 212, 212),
                                           fontSize: 21)),
                                 ))
                           ],
@@ -350,21 +288,11 @@ class _SignPageState extends State<SignPage> {
                                   ])),
                               child: Center(
                                 child: GestureDetector(
-                                  onTap: () {
-                                    if (_formkey.currentState!.validate()) {
-                                      setState(() {
-                                        email = mailcontroller.text;
-                                        name = namecontroller.text;
-                                        password = passwordcontroller.text;
-                                      });
-                                    }
-                                    registration();
-                                  },
+                                  onTap: _register,
                                   child: Text(
                                     "Sign Up",
                                     style: TextStyle(
-                                        color:
-                                            Color.fromARGB(255, 238, 237, 235),
+                                        color: Color.fromARGB(255, 238, 237, 235),
                                         fontSize: 24,
                                         fontWeight: FontWeight.w400,
                                         fontFamily: "Merriweather"),
@@ -434,7 +362,6 @@ class _SignPageState extends State<SignPage> {
                                     Color.fromARGB(255, 219, 135, 24)
                                   ])),
                               child: AnyLogo.media.gmail.image(),
-                              // color: Colors.white,
                             ),
                             SizedBox(
                               width: 15,

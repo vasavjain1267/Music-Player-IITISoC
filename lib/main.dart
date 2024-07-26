@@ -6,17 +6,17 @@ import 'package:harmonix/home_screen.dart';
 import 'package:harmonix/mainmusic/models/song_model.dart';
 import 'package:harmonix/musicmain/bottomnavbar.dart';
 import 'package:harmonix/radiofront/radiopage.dart';
-
 import 'package:harmonix/settings/setting_page.dart';
 import 'package:harmonix/screens/welcome.dart';
+import 'package:harmonix/splashscreen.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+// import 'splash_screen.dart';  // Import the splash screen
 
 void main() async {
-   WidgetsFlutterBinding.ensureInitialized();
-   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  //.then((value) => Get.put(AuthenticationRepository()));
-   await Hive.initFlutter();
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Hive.initFlutter();
   Hive.registerAdapter(SongModelAdapter());
   await Hive.openBox<SongModel>('recentlyPlayed');
   await Hive.openBox<SongModel>('favorites');
@@ -41,36 +41,22 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    // Replace with actual user data obtained during signup or login
-    const String username = "spotifyUser";
-    const String email = "spotify@example.com";
-    const String password = "spotifyPassword123";
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-     home: Welcome(),
-//home: HomeScreen(onThemeChanged: _toggleTheme),
-    //  home: RadioPage(),
-       //home: bottomnav(),
-      // home: SettingsPage(
-      //   username: username,
-      //   email: email,
-      //   password: password,
-      //   toggleTheme: _toggleTheme,
-      // ),
+      initialRoute: '/',  // Set initial route to splash screen
+      routes: {
+        '/': (context) => SplashScreen(),
+        '/welcome': (context) => Welcome(),
+        // '/home': (context) => HomeScreen(),
+        // Add other routes here if necessary
+      },
       theme: ThemeData(
         fontFamily: "Merriweather",
         brightness: Brightness.dark,
         scaffoldBackgroundColor: Color.fromARGB(255, 197, 115, 9),
-        //scaffoldBackgroundColor: Colors.white,
         primaryColor: Color.fromARGB(255, 197, 115, 8),
         useMaterial3: true,
       ),
-      // theme: ThemeData(
-      //   primarySwatch: Colors.blue,
-      //   brightness: Brightness.light,
-      //   // scaffoldBackgroundColor: Colors.white,
-      // ),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
         scaffoldBackgroundColor: Colors.black,

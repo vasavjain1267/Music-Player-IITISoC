@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +6,8 @@ import 'package:harmonix/musicmain/bottomnavbar.dart';
 import 'package:harmonix/screens/Reset.dart';
 import 'package:harmonix/screens/signpage.dart';
 import 'package:harmonix/screens/welcome.dart';
+import 'package:harmonix/settings/setting_page.dart';
+// import 'package:harmonix/settings/settings_page.dart'; // Import the settings page
 import 'package:harmonix/services/authservice.dart';
 
 class LogPage extends StatefulWidget {
@@ -18,105 +18,12 @@ class LogPage extends StatefulWidget {
 }
 
 class _LogPageState extends State<LogPage> {
-  // String email = "", password = "";
-
-  // TextEditingController mailcontroller = new TextEditingController();
-  // TextEditingController passwordcontroller = new TextEditingController();
-
-  // final _formkey = GlobalKey<FormState>();
-
-  // userLogin() async {
-  //   try {
-  //     await FirebaseAuth.instance
-  //         .signInWithEmailAndPassword(email: email, password: password);
-  //     Navigator.push(
-  //         context, MaterialPageRoute(builder: (context) => bottomnav()));
-  //   } on FirebaseAuthException catch (e) {
-  //     if (e.code == 'user-not-found') {
-  //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-  //           backgroundColor: Colors.orangeAccent,
-  //           content: Text(
-  //             "No User Found for that Email",
-  //             style: TextStyle(fontSize: 18.0),
-  //           )));
-  //     } else if (e.code == 'wrong-password') {
-  //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-  //           backgroundColor: Colors.orangeAccent,
-  //           content: Text(
-  //             "Wrong Password Provided by User",
-  //             style: TextStyle(fontSize: 18.0),
-  //           )));
-  //     }
-  //   }
-  // }
-  String email = "", password = "";
+  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  
   bool _passwordVisible = false;
   bool _isLoading = false;
-
-  TextEditingController mailcontroller = TextEditingController();
-  TextEditingController passwordcontroller = TextEditingController();
-
-  final _formkey = GlobalKey<FormState>();
-
-  Future<void> userLogin() async {
-    if (passwordcontroller.text.isNotEmpty && mailcontroller.text.isNotEmpty) {
-      setState(() {
-        _isLoading = true;
-      });
-      // setState(() {
-      //   _isLoading = true;
-      // });
-      try {
-        UserCredential userCredential = await FirebaseAuth.instance
-            .signInWithEmailAndPassword(email: email, password: password);
-
-        // Fetch user details from Firestore
-        // DocumentSnapshot docSnap = await FirebaseFirestore.instance
-        //     .collection('users')
-        //     .doc(userCredential.user!.uid)
-        //     .get();
-
-        // if (docSnap.exists) {
-        //   Map<String, dynamic> data = docSnap.data() as Map<String, dynamic>;
-        //   String name = data['name'];
-
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => bottomnav()),
-        );
-        // } else {
-        //   // Handle case where document doesn't exist
-        //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        //     backgroundColor: Colors.orangeAccent,
-        //     content: Text(
-        //       "No user found associated with this email.",
-        //       style: TextStyle(fontSize: 18.0),
-        //     ),
-        //   ));
-        // }
-      } on FirebaseAuthException catch (e) {
-        String errorMessage;
-        if (e.code == 'user-not-found') {
-          errorMessage = "No User Found for that Email";
-        } else if (e.code == 'wrong-password') {
-          errorMessage = "Wrong Password Provided by User";
-        } else {
-          errorMessage = "An error occurred. Please try again.";
-        }
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          backgroundColor: Colors.orangeAccent,
-          content: Text(
-            errorMessage,
-            style: TextStyle(fontSize: 18.0),
-          ),
-        ));
-      } finally {
-        setState(() {
-          _isLoading = false;
-        });
-      }
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -156,51 +63,6 @@ class _LogPageState extends State<LogPage> {
                     SizedBox(
                       height: 15,
                     ),
-                    // Row(
-                    //   children: [
-                    //     SizedBox(
-                    //       width: 25,
-                    //     ),
-                    //     Text(
-                    //       "Name",
-                    //       style: TextStyle(
-                    //           color: Colors.white,
-                    //           fontSize: 20,
-                    //           fontFamily: "Merriweather"),
-                    //     )
-                    //   ],
-                    // ),
-                    // SizedBox(
-                    //   height: 4,
-                    // ),
-                    // Row(
-                    //   children: [
-                    //     SizedBox(
-                    //       width: 23,
-                    //     ),
-                    //     Container(
-                    //         width: 320,
-                    //         height: 40,
-                    //         decoration: BoxDecoration(
-                    //             borderRadius:
-                    //                 BorderRadius
-                    //                     .circular(40),
-                    //             border: Border.all(
-                    //                 color: const Color
-                    //                     .fromARGB(
-                    //                     255,
-                    //                     197,
-                    //                     141,
-                    //                     56))),
-                    //         child: TextFormField(
-                    //           decoration:
-                    //               InputDecoration(
-                    //                   border:
-                    //                       InputBorder
-                    //                           .none),
-                    //         ))
-                    //   ],
-                    // ),
                     SizedBox(
                       height: 18,
                     ),
@@ -235,13 +97,13 @@ class _LogPageState extends State<LogPage> {
                                     color: const Color.fromARGB(
                                         255, 197, 141, 56))),
                             child: TextFormField(
+                              controller: _emailController,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please Enter E-mail';
                                 }
                                 return null;
                               },
-                              controller: mailcontroller,
                               textAlignVertical: TextAlignVertical.center,
                               textAlign: TextAlign.center,
                               decoration: InputDecoration(
@@ -289,19 +151,16 @@ class _LogPageState extends State<LogPage> {
                                     color: const Color.fromARGB(
                                         255, 197, 141, 56))),
                             child: TextFormField(
-                              controller: passwordcontroller,
+                              controller: _passwordController,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Please Enter Password';
                                 }
                                 return null;
                               },
-                              //controller: password,
                               textAlign: TextAlign.center,
                               textAlignVertical: TextAlignVertical.center,
-                              // obscureText: true,
                               obscureText: !_passwordVisible,
-
                               decoration: InputDecoration(
                                   border: InputBorder.none,
                                   prefixIcon: IconButton(
@@ -319,13 +178,11 @@ class _LogPageState extends State<LogPage> {
                                   ),
                                   hintText: 'Enter your Password',
                                   hintStyle: TextStyle(
-                                      //fontFamily: "Merriweather",
                                       color: Color.fromARGB(66, 218, 212, 212),
                                       fontSize: 21)),
                             ))
                       ],
                     ),
-
                     SizedBox(
                       height: 30,
                     ),
@@ -335,15 +192,7 @@ class _LogPageState extends State<LogPage> {
                           width: MediaQuery.of(context).size.width / 7,
                         ),
                         GestureDetector(
-                          onTap: () {
-                            if (_formkey.currentState!.validate()) {
-                              setState(() {
-                                email = mailcontroller.text;
-                                password = passwordcontroller.text;
-                              });
-                            }
-                            userLogin();
-                          },
+                          onTap: _login,
                           child: Container(
                             width: MediaQuery.of(context).size.width / 1.5,
                             height: 40,
@@ -457,7 +306,6 @@ class _LogPageState extends State<LogPage> {
                                   Color.fromARGB(255, 219, 135, 24)
                                 ])),
                             child: AnyLogo.media.gmail.image(),
-                            // color: Colors.white,
                           ),
                         ),
                         SizedBox(
@@ -521,5 +369,53 @@ class _LogPageState extends State<LogPage> {
         ),
       ),
     );
+  }
+
+  Future<void> _login() async {
+    if (_formkey.currentState!.validate()) {
+      setState(() {
+        _isLoading = true;
+      });
+
+      try {
+        UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: _emailController.text,
+          password: _passwordController.text,
+        );
+
+        // Fetch user data from Firestore
+        DocumentSnapshot userDoc = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(userCredential.user!.uid)
+            .get();
+
+        if (userDoc.exists) {
+          String username = userDoc['username'];
+          String email = userDoc['email'];
+
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SettingsPage(
+                username: username,
+                email: email,
+              ),
+            ),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('User data not found')),
+          );
+        }
+      } on FirebaseAuthException catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(e.message!)),
+        );
+      } finally {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
   }
 }

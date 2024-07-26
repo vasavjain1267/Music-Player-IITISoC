@@ -24,7 +24,7 @@ class _LogInState extends State<LogIn> {
                 height: 20,
               ),
               Text(
-                "Welcome back",
+                "Welcome",
                 style: TextStyle(
                     fontFamily: "DancingScript",
                     fontSize: 52,

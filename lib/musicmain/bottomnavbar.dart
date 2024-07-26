@@ -37,21 +37,13 @@ class _bottomnavState extends State<bottomnav> {
     Settings = SettingsPage(
       username: username,
       email: email,
-      password: password,
-      toggleTheme: _toggleTheme,
     );
 
     pages = [homescreen, Library, Radio, Settings];
     super.initState();
   }
 
-  ThemeMode _themeMode = ThemeMode.dark;
 
-  void _toggleTheme(bool isDarkMode) {
-    setState(() {
-      _themeMode = isDarkMode ? ThemeMode.dark : ThemeMode.light;
-    });
-  }
 
   String username = "spotifyUser";
   String email = "spotify@example.com";

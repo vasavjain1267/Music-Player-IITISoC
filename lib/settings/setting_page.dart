@@ -1,8 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-//import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:harmonix/screens/welcome.dart';
-
 import 'package:harmonix/settings/privacy_policy_page.dart';
 import 'package:harmonix/settings/terms_condition_page.dart';
 import 'package:harmonix/settings/faqs_page.dart';
@@ -11,15 +10,11 @@ import 'package:harmonix/settings/about_us_page.dart';
 class SettingsPage extends StatefulWidget {
   final String username;
   final String email;
-  final String password;
-  final Function(bool) toggleTheme;
 
   const SettingsPage({
     super.key,
     required this.username,
     required this.email,
-    required this.password,
-    required this.toggleTheme,
   });
 
   @override
@@ -28,6 +23,14 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   bool isDarkMode = false;
+  bool isEditingUsername = false;
+  TextEditingController _usernameController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _usernameController.text = widget.username;
+  }
 
   void _deleteAccount() {
     showDialog(
@@ -112,6 +115,23 @@ After deleting your account, you must log out.'''),
     );
   }
 
+  void _saveUsername() async {
+    String newUsername = _usernameController.text;
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .update({'name': newUsername});
+      setState(() {
+        isEditingUsername = false;
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Failed to update username')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -143,21 +163,37 @@ After deleting your account, you must log out.'''),
         title: const Text('Account', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
         children: <Widget>[
           ListTile(
-            title: Text('Username: ${widget.username}', style: const TextStyle(fontSize: 16)),
+            title: Row(
+              children: [
+                isEditingUsername
+                    ? Expanded(
+                        child: TextField(
+                          controller: _usernameController,
+                          decoration: InputDecoration(
+                            hintText: 'Enter new username',
+                          ),
+                        ),
+                      )
+                    : Expanded(
+                        child: Text('Username: ${_usernameController.text}', style: const TextStyle(fontSize: 16)),
+                      ),
+                IconButton(
+                  icon: Icon(isEditingUsername ? Icons.check : Icons.edit),
+                  onPressed: () {
+                    if (isEditingUsername) {
+                      _saveUsername();
+                    } else {
+                      setState(() {
+                        isEditingUsername = true;
+                      });
+                    }
+                  },
+                ),
+              ],
+            ),
           ),
           ListTile(
             title: Text('Email: ${widget.email}', style: const TextStyle(fontSize: 16)),
-          ),
-          ListTile(
-            title: TextFormField(
-              initialValue: widget.password,
-              obscureText: true,
-              readOnly: true,
-              decoration: const InputDecoration(
-                labelText: 'Password',
-                labelStyle: TextStyle(fontSize: 16),
-              ),
-            ),
           ),
         ],
       ),
@@ -190,7 +226,7 @@ After deleting your account, you must log out.'''),
                           setState(() {
                             isDarkMode = value;
                           });
-                          widget.toggleTheme(value);
+                          // widget.toggleTheme(value);
                           Navigator.of(context).pop();
                         }
                       },
@@ -204,7 +240,7 @@ After deleting your account, you must log out.'''),
                           setState(() {
                             isDarkMode = value;
                           });
-                          widget.toggleTheme(value);
+                          // widget.toggleTheme(value);
                           Navigator.of(context).pop();
                         }
                       },

@@ -20,8 +20,6 @@ class _SignUpState extends State<SignUp> {
   
   @override
   Widget build(BuildContext context) {
-    //final controller = Get.put(SignUpController());
-   
     return SingleChildScrollView(
       child: Container(
           width: 408,
@@ -31,7 +29,7 @@ class _SignUpState extends State<SignUp> {
                 height: 20,
               ),
               Text(
-                "Get Started",
+                "Get",
                 style: TextStyle(
                     fontFamily: "DancingScript",
                     fontSize: 52,

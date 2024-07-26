@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:harmonix/ai/pages/home_page.dart';
 import 'package:harmonix/mainmusic/models/song_model.dart';
@@ -17,6 +16,7 @@ class _SongListPageState extends State<SongListPage> {
   final TextEditingController _searchController = TextEditingController();
   List<SongModel> _songs = [];
   List<SongModel> _recentlyPlayed = [];
+
   @override
   void initState() {
     super.initState();
@@ -66,18 +66,7 @@ class _SongListPageState extends State<SongListPage> {
         foregroundColor: Color.fromARGB(255, 122, 122, 2),
       ),
       appBar: AppBar(
-        title: TextField(
-          controller: _searchController,
-          decoration: InputDecoration(
-            hintText: 'Search songs',
-            //suffixIcon: GestureDetector(child: Icon(Icons.search_sharp),onTap: (_) => _searchSongs(),),
-            suffixIcon: IconButton(
-              icon: Icon(Icons.search),
-              onPressed: _searchSongs,
-            ),
-          ),
-          //onSubmitted: (_) => _searchSongs(),
-        ),
+        title: Text('Song List'),
       ),
       body: Container(
         width: double.maxFinite,
@@ -89,6 +78,24 @@ class _SongListPageState extends State<SongListPage> {
                 end: Alignment.bottomRight)),
         child: Column(
           children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: _searchController,
+                decoration: InputDecoration(
+                  hintText: 'Search songs',
+                  suffixIcon: IconButton(
+                    icon: Icon(Icons.search),
+                    onPressed: _searchSongs,
+                  ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  filled: true,
+                  fillColor: Colors.white.withOpacity(0.8),
+                ),
+              ),
+            ),
             if (_recentlyPlayed.isNotEmpty)
               Container(
                 height: 180,
@@ -111,8 +118,7 @@ class _SongListPageState extends State<SongListPage> {
                           Image.network(song.cover, width: 100, height: 100),
                           Text(song.title,
                               style: TextStyle(
-                                  color:
-                                      const Color.fromARGB(255, 184, 12, 12))),
+                                  color: const Color.fromARGB(255, 184, 12, 12))),
                           Text(song.artist,
                               style: TextStyle(
                                   color: Color.fromARGB(255, 8, 187, 17))),
