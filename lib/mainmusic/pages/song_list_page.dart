@@ -6,8 +6,6 @@ import 'package:harmonix/mainmusic/models/song_model.dart';
 import 'package:harmonix/mainmusic/services/deezer_service.dart';
 import 'package:hive/hive.dart';
 import 'package:lottie/lottie.dart';
-//import 'package:trial5/models/song_model.dart';
-//import 'package:trial5/services/deezer_service.dart';
 import 'player_screen.dart';
 
 class SongListPage extends StatefulWidget {
@@ -19,7 +17,6 @@ class _SongListPageState extends State<SongListPage> {
   final TextEditingController _searchController = TextEditingController();
   List<SongModel> _songs = [];
   List<SongModel> _recentlyPlayed = [];
-
   @override
   void initState() {
     super.initState();
