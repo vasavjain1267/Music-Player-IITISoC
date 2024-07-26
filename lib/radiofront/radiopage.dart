@@ -9,6 +9,7 @@ import 'package:harmonix/radiofront/radio.dart';
 import 'package:harmonix/radiofront/radiotile.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart';
+import 'package:lottie/lottie.dart';
 import 'package:radio_player/radio_player.dart';
 
 class RadioPage extends StatefulWidget {
@@ -165,7 +166,10 @@ class _RadioPageState extends State<RadioPage> {
           Expanded(
             child: radioList == null
                 ? Center(
-                    child: CircularProgressIndicator(),
+                    child: Container(
+                        height: 180,
+                        width: 180,
+                        child: Lottie.asset("assets/alienmusic.json")),
                   )
                 : ListView.separated(
                     itemBuilder: (context, index) => CustomRadioListTile(

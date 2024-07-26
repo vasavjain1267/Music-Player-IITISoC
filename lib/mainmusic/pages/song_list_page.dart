@@ -5,6 +5,7 @@ import 'package:harmonix/ai/pages/home_page.dart';
 import 'package:harmonix/mainmusic/models/song_model.dart';
 import 'package:harmonix/mainmusic/services/deezer_service.dart';
 import 'package:hive/hive.dart';
+import 'package:lottie/lottie.dart';
 //import 'package:trial5/models/song_model.dart';
 //import 'package:trial5/services/deezer_service.dart';
 import 'player_screen.dart';
@@ -54,15 +55,17 @@ class _SongListPageState extends State<SongListPage> {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
+        
         onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => HomePage(),
-                ),
-              );
-            },
-        child: Icon(Icons.add),
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomePage(),
+            ),
+          );
+        },
+        child: Container(
+            height: 150, width: 150, child: Lottie.asset("assets/ai.json")),
         backgroundColor: Colors.black,
         foregroundColor: Color.fromARGB(255, 122, 122, 2),
       ),

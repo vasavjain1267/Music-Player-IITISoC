@@ -36,9 +36,9 @@ class _HomePageState extends State<HomePage> {
                 height: double.maxFinite,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        opacity: 0.5,
+                        opacity: 0.3,
                         image: AssetImage(
-                          "assets/naturewallpaper.jpg",
+                          "assets/wallpaper.jpeg",
                         ),
                         fit: BoxFit.cover)),
                 child: Column(
@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "Your AI",
+                            "Music AI",
                             style: TextStyle(
                                 fontSize: 45,
                                 fontWeight: FontWeight.bold,
@@ -103,7 +103,7 @@ class _HomePageState extends State<HomePage> {
                       Container(
                           height: 80,
                           width: 80,
-                          child: Lottie.asset("assets/loader.json")),
+                          child: Lottie.asset("assets/ailoader.json")),
                     Container(
                       padding:
                           EdgeInsets.symmetric(horizontal: 15, vertical: 20),
@@ -120,7 +120,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                             cursorColor: Colors.green,
                             decoration: InputDecoration(
-                                hintText: "Ask something",
+                                hintText: "Ask me about music",
                                 hintStyle: TextStyle(
                                     fontSize: 20,
                                     color: Colors.amberAccent.shade200),
