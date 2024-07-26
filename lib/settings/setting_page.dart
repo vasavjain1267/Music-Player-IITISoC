@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
+//import 'package:get/get_navigation/src/extension_navigation.dart';
 import 'package:harmonix/screens/welcome.dart';
 
 import 'package:harmonix/settings/privacy_policy_page.dart';
@@ -30,34 +30,6 @@ class _SettingsPageState extends State<SettingsPage> {
   bool isDarkMode = false;
 
   void _deleteAccount() {
-    // showDialog(
-    //   context: context,
-    //   builder: (context) {
-    //     return AlertDialog(
-    //       title: const Text('Delete Account'),
-    //       content: const Text(
-    //           'Are you sure you want to delete your account? This action cannot be undone.'),
-    //       actions: [
-    //         TextButton(
-    //           onPressed: () {
-    //             Navigator.of(context).pop();
-    //           },
-    //           child: const Text('Cancel'),
-    //         ),
-    //         TextButton(
-    //           onPressed: () {
-    //             // Implement account deletion logic here
-    //             Navigator.of(context).pop();
-    //             ScaffoldMessenger.of(context).showSnackBar(
-    //               const SnackBar(content: Text('Account deleted')),
-    //             );
-    //           },
-    //           child: const Text('Delete'),
-    //         ),
-    //       ],
-    //     );
-    //   },
-    // );
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -79,14 +51,11 @@ After deleting your account, you must log out.'''),
             TextButton(
               child: const Text(
                 'Delete',
-                selectionColor: Colors.red,
+                style: TextStyle(color: Colors.red),
               ),
               onPressed: () {
-                // Call the delete account function
                 deleteUserAccount();
-                // Navigator.pushReplacement(context,
-                //     MaterialPageRoute(builder: (context) => Welcome()));
-                Navigator.pop(context);
+                Navigator.of(context).pop();
               },
             ),
           ],
@@ -98,45 +67,49 @@ After deleting your account, you must log out.'''),
   Future<void> deleteUserAccount() async {
     try {
       await FirebaseAuth.instance.currentUser!.delete();
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Welcome()),
+      );
     } on FirebaseAuthException catch (e) {
-      // log.e(e);
-
       if (e.code == "requires-recent-login") {
         await _reauthenticateAndDelete();
       } else {
-        // Handle other Firebase exceptions
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(e.message ?? 'Error occurred')),
+        );
       }
     } catch (e) {
-      // log.e(e);
-
-      // Handle general exception
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('An unexpected error occurred')),
+      );
     }
   }
 
   Future<void> _reauthenticateAndDelete() async {
     try {
-      final providerData = auth.currentUser?.providerData.first;
+      final providerData = FirebaseAuth.instance.currentUser?.providerData.first;
 
       if (AppleAuthProvider().providerId == providerData!.providerId) {
-        await auth.currentUser!.reauthenticateWithProvider(AppleAuthProvider());
+        await FirebaseAuth.instance.currentUser!.reauthenticateWithProvider(AppleAuthProvider());
       } else if (GoogleAuthProvider().providerId == providerData.providerId) {
-        await auth.currentUser!
-            .reauthenticateWithProvider(GoogleAuthProvider());
+        await FirebaseAuth.instance.currentUser!.reauthenticateWithProvider(GoogleAuthProvider());
       }
 
-      await auth.currentUser?.delete();
+      await FirebaseAuth.instance.currentUser?.delete();
     } catch (e) {
-      // Handle exceptions
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Reauthentication failed')),
+      );
     }
   }
 
-  final FirebaseAuth auth = FirebaseAuth.instance;
   signOut() async {
-    await auth.signOut();
+    await FirebaseAuth.instance.signOut();
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => Welcome()));
-
-    //Navigator.pop(context);
+      context,
+      MaterialPageRoute(builder: (context) => Welcome()),
+    );
   }
 
   @override
@@ -144,162 +117,199 @@ After deleting your account, you must log out.'''),
     return Scaffold(
       appBar: AppBar(
         title: const Text('Settings'),
+        backgroundColor: Colors.blueGrey,
       ),
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: <Widget>[
-          ExpansionTile(
-            leading: const Icon(Icons.account_circle, size: 30),
-            title: const Text('Account', style: TextStyle(fontSize: 20)),
-            children: <Widget>[
-              ListTile(
-                title: Text('Username: ${widget.username}',
-                    style: const TextStyle(fontSize: 18)),
-              ),
-              ListTile(
-                title: Text('Email: ${widget.email}',
-                    style: const TextStyle(fontSize: 18)),
-              ),
-              ListTile(
-                title: TextFormField(
-                  initialValue: widget.password,
-                  obscureText: true,
-                  readOnly: true,
-                  decoration: const InputDecoration(
-                    labelText: 'Password',
-                    labelStyle: TextStyle(fontSize: 18),
-                  ),
-                ),
-              ),
-            ],
+          _buildAccountSection(),
+          _buildAppearanceSection(),
+          _buildMoreInformationSection(),
+          _buildHelpAndSupportSection(),
+          _buildContactUsSection(),
+          _buildLogoutTile(),
+          _buildDeleteAccountTile(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAccountSection() {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 8.0),
+      elevation: 4,
+      child: ExpansionTile(
+        leading: const Icon(Icons.account_circle, size: 30),
+        title: const Text('Account', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        children: <Widget>[
+          ListTile(
+            title: Text('Username: ${widget.username}', style: const TextStyle(fontSize: 16)),
           ),
           ListTile(
-            leading: const Icon(Icons.brightness_6, size: 30),
-            title: const Text('App Appearance', style: TextStyle(fontSize: 20)),
-            subtitle: const Text('Theme', style: TextStyle(fontSize: 16)),
-            onTap: () {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    title: const Text('Select Theme'),
-                    content: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        RadioListTile<bool>(
-                          title: const Text('Always Light',
-                              style: TextStyle(fontSize: 18)),
-                          value: false,
-                          groupValue: isDarkMode,
-                          onChanged: (bool? value) {
-                            if (value != null) {
-                              setState(() {
-                                isDarkMode = value;
-                              });
-                              widget.toggleTheme(value);
-                              Navigator.of(context).pop();
-                            }
-                          },
-                        ),
-                        RadioListTile<bool>(
-                          title: const Text('Always Dark',
-                              style: TextStyle(fontSize: 18)),
-                          value: true,
-                          groupValue: isDarkMode,
-                          onChanged: (bool? value) {
-                            if (value != null) {
-                              setState(() {
-                                isDarkMode = value;
-                              });
-                              widget.toggleTheme(value);
-                              Navigator.of(context).pop();
-                            }
-                          },
-                        ),
-                      ],
+            title: Text('Email: ${widget.email}', style: const TextStyle(fontSize: 16)),
+          ),
+          ListTile(
+            title: TextFormField(
+              initialValue: widget.password,
+              obscureText: true,
+              readOnly: true,
+              decoration: const InputDecoration(
+                labelText: 'Password',
+                labelStyle: TextStyle(fontSize: 16),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAppearanceSection() {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 8.0),
+      elevation: 4,
+      child: ListTile(
+        leading: const Icon(Icons.brightness_6, size: 30),
+        title: const Text('App Appearance', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        subtitle: const Text('Theme', style: TextStyle(fontSize: 16)),
+        onTap: () {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: const Text('Select Theme'),
+                content: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    RadioListTile<bool>(
+                      title: const Text('Always Light', style: TextStyle(fontSize: 16)),
+                      value: false,
+                      groupValue: isDarkMode,
+                      onChanged: (bool? value) {
+                        if (value != null) {
+                          setState(() {
+                            isDarkMode = value;
+                          });
+                          widget.toggleTheme(value);
+                          Navigator.of(context).pop();
+                        }
+                      },
                     ),
-                  );
-                },
+                    RadioListTile<bool>(
+                      title: const Text('Always Dark', style: TextStyle(fontSize: 16)),
+                      value: true,
+                      groupValue: isDarkMode,
+                      onChanged: (bool? value) {
+                        if (value != null) {
+                          setState(() {
+                            isDarkMode = value;
+                          });
+                          widget.toggleTheme(value);
+                          Navigator.of(context).pop();
+                        }
+                      },
+                    ),
+                  ],
+                ),
               );
             },
-          ),
-          ExpansionTile(
-            leading: const Icon(Icons.info, size: 30),
-            title:
-                const Text('More Information', style: TextStyle(fontSize: 20)),
-            children: <Widget>[
-              ListTile(
-                title: const Text('Privacy Policy',
-                    style: TextStyle(fontSize: 18)),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => PrivacyPolicyPage()),
-                  );
-                },
-              ),
-              ListTile(
-                title: const Text('Terms and Conditions',
-                    style: TextStyle(fontSize: 18)),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => TermsConditionsPage()),
-                  );
-                },
-              ),
-              const ListTile(
-                title: Text('App Version', style: TextStyle(fontSize: 18)),
-                subtitle: Text('1.0.0', style: TextStyle(fontSize: 16)),
-              ),
-            ],
-          ),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildMoreInformationSection() {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 8.0),
+      elevation: 4,
+      child: ExpansionTile(
+        leading: const Icon(Icons.info, size: 30),
+        title: const Text('More Information', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        children: <Widget>[
           ListTile(
-            leading: const Icon(Icons.help, size: 30),
-            title:
-                const Text('Help and Support', style: TextStyle(fontSize: 20)),
-            subtitle: const Text('FAQs', style: TextStyle(fontSize: 16)),
+            title: const Text('Privacy Policy', style: TextStyle(fontSize: 16)),
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => FAQsPage()),
+                MaterialPageRoute(builder: (context) => PrivacyPolicyPage()),
               );
             },
           ),
           ListTile(
-            leading: const Icon(Icons.info_outline, size: 30),
-            title: const Text('About Us', style: TextStyle(fontSize: 20)),
+            title: const Text('Terms and Conditions', style: TextStyle(fontSize: 16)),
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => AboutUsPage()),
+                MaterialPageRoute(builder: (context) => TermsConditionsPage()),
               );
             },
           ),
           const ListTile(
-            leading: Icon(Icons.contact_mail, size: 30),
-            title: Text('Contact Us', style: TextStyle(fontSize: 20)),
-            subtitle:
-                Text('iitisoc24@gmail.com', style: TextStyle(fontSize: 16)),
-          ),
-          ListTile(
-            leading: const Icon(Icons.logout, size: 30),
-            title: GestureDetector(
-                onTap: () {
-                  // AuthenticationRepository.instance.logout();
-                  signOut();
-                },
-                child: const Text('Log Out', style: TextStyle(fontSize: 20))),
-          ),
-          ListTile(
-            leading: const Icon(Icons.delete, size: 30),
-            title:
-                const Text('Delete My Account', style: TextStyle(fontSize: 20)),
-            onTap: _deleteAccount,
+            title: Text('App Version', style: TextStyle(fontSize: 16)),
+            subtitle: Text('1.0.0', style: TextStyle(fontSize: 14)),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildHelpAndSupportSection() {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 8.0),
+      elevation: 4,
+      child: ListTile(
+        leading: const Icon(Icons.help, size: 30),
+        title: const Text('Help and Support', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        subtitle: const Text('FAQs', style: TextStyle(fontSize: 16)),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => FAQsPage()),
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _buildContactUsSection() {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 8.0),
+      elevation: 4,
+      child: ListTile(
+        leading: const Icon(Icons.contact_mail, size: 30),
+        title: const Text('Contact Us', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        subtitle: const Text('iitisoc24@gmail.com', style: TextStyle(fontSize: 16)),
+      ),
+    );
+  }
+
+  Widget _buildLogoutTile() {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 8.0),
+      elevation: 4,
+      child: ListTile(
+        leading: const Icon(Icons.logout, size: 30),
+        title: GestureDetector(
+          onTap: () {
+            signOut();
+          },
+          child: const Text('Log Out', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDeleteAccountTile() {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 8.0),
+      elevation: 4,
+      child: ListTile(
+        leading: const Icon(Icons.delete, size: 30, color: Colors.red),
+        title: GestureDetector(
+          onTap: _deleteAccount,
+          child: const Text('Delete My Account', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.red)),
+        ),
       ),
     );
   }
