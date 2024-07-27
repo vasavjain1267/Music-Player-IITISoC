@@ -1,7 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:harmonix/firebase_options.dart';
-import 'package:harmonix/mainmusic/models/song_model.dart';
+//import 'package:harmonix/mainmusic/models/song_model.dart';
+import 'package:harmonix/music/hive_service.dart';
 import 'package:harmonix/musicmain/bottomnavbar.dart'; // Import BottomNavBar
 import 'package:harmonix/screens/welcome.dart';
 import 'package:harmonix/splashscreen.dart';
@@ -12,10 +13,11 @@ import 'package:firebase_auth/firebase_auth.dart';  // Import Firebase Auth
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  await Hive.initFlutter();
-  Hive.registerAdapter(SongModelAdapter());
-  await Hive.openBox<SongModel>('recentlyPlayed');
-  await Hive.openBox<SongModel>('favorites');
+  // await Hive.initFlutter();
+  // Hive.registerAdapter(SongModelAdapter());
+  // await Hive.openBox<SongModel>('recentlyPlayed');
+  // await Hive.openBox<SongModel>('favorites');
+  await HiveService.init();
   runApp(const MyApp());
 }
 

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:harmonix/mainmusic/pages/library_page.dart';
 import 'package:harmonix/mainmusic/pages/song_list_page.dart';
+import 'package:harmonix/music/library_page.dart';
+import 'package:harmonix/music/song_list_page.dart';
 import 'package:harmonix/radiofront/radiopage.dart';
 import 'package:harmonix/settings/setting_page.dart';
 
