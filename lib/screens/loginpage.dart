@@ -3,12 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_any_logo/flutter_logo.dart';
 import 'package:harmonix/musicmain/bottomnavbar.dart';
-import 'package:harmonix/screens/Reset.dart';
-import 'package:harmonix/screens/signpage.dart';
 import 'package:harmonix/screens/welcome.dart';
-import 'package:harmonix/settings/setting_page.dart';
-// import 'package:harmonix/settings/settings_page.dart'; // Import the settings page
-import 'package:harmonix/services/authservice.dart';
+import 'package:harmonix/screens/reset.dart';
+import 'package:harmonix/screens/signpage.dart';
 
 class LogPage extends StatefulWidget {
   const LogPage({super.key});
@@ -21,9 +18,8 @@ class _LogPageState extends State<LogPage> {
   final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  
+
   bool _passwordVisible = false;
-  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -294,7 +290,7 @@ class _LogPageState extends State<LogPage> {
                         ),
                         GestureDetector(
                           onTap: () {
-                            AuthMethods().signInWithGoogle(context);
+                            // Handle Google login
                           },
                           child: Container(
                             height: 70,
@@ -333,36 +329,29 @@ class _LogPageState extends State<LogPage> {
                     Row(
                       children: [
                         SizedBox(
-                          width: MediaQuery.of(context).size.width / 3.2,
+                          width: MediaQuery.of(context).size.width / 6.5,
                         ),
                         Text(
-                          "First time? ",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: "Merriweather",
-                              fontSize: 18),
+                          "First Time?",
+                          style: TextStyle(fontSize: 18),
                         ),
                         GestureDetector(
                           onTap: () {
-                            Navigator.push(
+                            Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => SignPage()));
                           },
                           child: Text(
-                            " Sign up",
+                            " Create new account",
                             style: TextStyle(
-                              color: Color.fromARGB(255, 218, 101, 7),
-                              fontFamily: "Merriweather",
-                              fontSize: 18,
-                            ),
+                                color: Color.fromARGB(255, 250, 236, 11),
+                                fontSize: 19,
+                                fontFamily: "Default"),
                           ),
                         )
                       ],
-                    ),
-                    SizedBox(
-                      height: 40,
-                    ),
+                    )
                   ],
                 ),
               )),
@@ -373,15 +362,13 @@ class _LogPageState extends State<LogPage> {
 
   Future<void> _login() async {
     if (_formkey.currentState!.validate()) {
-      setState(() {
-        _isLoading = true;
-      });
+      setState(() {});
 
       try {
-        UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: _emailController.text,
-          password: _passwordController.text,
-        );
+        UserCredential userCredential = await FirebaseAuth.instance
+            .signInWithEmailAndPassword(
+                email: _emailController.text,
+                password: _passwordController.text);
 
         // Fetch user data from Firestore
         DocumentSnapshot userDoc = await FirebaseFirestore.instance
@@ -390,31 +377,29 @@ class _LogPageState extends State<LogPage> {
             .get();
 
         if (userDoc.exists) {
-          String username = userDoc['username'];
-          String email = userDoc['email'];
+          var data = userDoc.data() as Map<String, dynamic>;
+          if (data.containsKey('name') && data.containsKey('email')) {
+            String username = data['name'];
+            String email = data['email'];
 
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => SettingsPage(
-                username: username,
-                email: email,
-              ),
-            ),
-          );
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    builder: (context) =>
+                        bottomnav(username: username, email: email)));
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('User data not found')));
+          }
         } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('User data not found')),
-          );
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text('User data not found')));
         }
       } on FirebaseAuthException catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(e.message!)),
-        );
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(e.message!)));
       } finally {
-        setState(() {
-          _isLoading = false;
-        });
+        setState(() {});
       }
     }
   }

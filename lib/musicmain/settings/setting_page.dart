@@ -10,14 +10,12 @@ import 'package:harmonix/settings/about_us_page.dart';
 class SettingsPage extends StatefulWidget {
   final String username;
   final String email;
-  final String password;
   final Function(bool) toggleTheme;
 
   const SettingsPage({
     super.key,
     required this.username,
     required this.email,
-    required this.password,
     required this.toggleTheme,
   });
 
@@ -29,37 +27,9 @@ class _SettingsPageState extends State<SettingsPage> {
   bool isDarkMode = false;
 
   void _deleteAccount() {
-    // showDialog(
-    //   context: context,
-    //   builder: (context) {
-    //     return AlertDialog(
-    //       title: const Text('Delete Account'),
-    //       content: const Text(
-    //           'Are you sure you want to delete your account? This action cannot be undone.'),
-    //       actions: [
-    //         TextButton(
-    //           onPressed: () {
-    //             Navigator.of(context).pop();
-    //           },
-    //           child: const Text('Cancel'),
-    //         ),
-    //         TextButton(
-    //           onPressed: () {
-    //             // Implement account deletion logic here
-    //             Navigator.of(context).pop();
-    //             ScaffoldMessenger.of(context).showSnackBar(
-    //               const SnackBar(content: Text('Account deleted')),
-    //             );
-    //           },
-    //           child: const Text('Delete'),
-    //         ),
-    //       ],
-    //     );
-    //   },
-    // );
     showDialog(
       context: context,
-      builder: (BuildContext context) {
+      builder: (context) {
         return AlertDialog(
           title: const Text('Delete your Account?'),
           content: const Text(
@@ -81,10 +51,9 @@ Since this is a security-sensitive operation, you eventually are asked to login 
                 selectionColor: Colors.red,
               ),
               onPressed: () {
-                // Call the delete account function
                 deleteUserAccount();
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => Welcome()));
+                Navigator.pushReplacement(
+                    context, MaterialPageRoute(builder: (context) => Welcome()));
               },
             ),
           ],
@@ -97,16 +66,12 @@ Since this is a security-sensitive operation, you eventually are asked to login 
     try {
       await FirebaseAuth.instance.currentUser!.delete();
     } on FirebaseAuthException catch (e) {
-      // log.e(e);
-
       if (e.code == "requires-recent-login") {
         await _reauthenticateAndDelete();
       } else {
         // Handle other Firebase exceptions
       }
     } catch (e) {
-      // log.e(e);
-
       // Handle general exception
     }
   }
@@ -158,7 +123,6 @@ Since this is a security-sensitive operation, you eventually are asked to login 
               ),
               ListTile(
                 title: TextFormField(
-                  initialValue: widget.password,
                   obscureText: true,
                   readOnly: true,
                   decoration: const InputDecoration(
@@ -284,7 +248,6 @@ Since this is a security-sensitive operation, you eventually are asked to login 
             leading: const Icon(Icons.logout, size: 30),
             title: GestureDetector(
                 onTap: () {
-                  // AuthenticationRepository.instance.logout();
                   signOut();
                 },
                 child: const Text('Log Out', style: TextStyle(fontSize: 20))),

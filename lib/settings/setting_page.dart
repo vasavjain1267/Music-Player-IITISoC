@@ -5,16 +5,13 @@ import 'package:harmonix/screens/welcome.dart';
 import 'package:harmonix/settings/privacy_policy_page.dart';
 import 'package:harmonix/settings/terms_condition_page.dart';
 import 'package:harmonix/settings/faqs_page.dart';
-import 'package:harmonix/settings/about_us_page.dart';
 
 class SettingsPage extends StatefulWidget {
   final String username;
   final String email;
-
-  const SettingsPage({
-    super.key,
-    required this.username,
-    required this.email,
+  final Function(bool) toggleTheme;
+ SettingsPage({
+    required this.username, required this.email, required this.toggleTheme
   });
 
   @override
@@ -350,3 +347,52 @@ After deleting your account, you must log out.'''),
     );
   }
 }
+// import 'package:flutter/material.dart';
+
+// class SettingsPage extends StatelessWidget {
+//   final String username;
+//   final String email;
+//   final Function(bool) toggleTheme;
+
+//   SettingsPage({required this.username, required this.email, required this.toggleTheme});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('Settings'),
+//       ),
+//       body: ListView(
+//         children: <Widget>[
+//           ExpansionTile(
+//             leading: const Icon(Icons.account_circle, size: 30),
+//             title: const Text('Account', style: TextStyle(fontSize: 20)),
+//             children: <Widget>[
+//               ListTile(
+//                 title: Text('Username: $username', style: const TextStyle(fontSize: 18)),
+//               ),
+//               ListTile(
+//                 title: Text('Email: $email', style: const TextStyle(fontSize: 18)),
+//               ),
+//               ListTile(
+//                 title: TextFormField(
+//                   obscureText: true,
+//                   readOnly: true,
+//                   decoration: const InputDecoration(
+//                     labelText: 'Password',
+//                     labelStyle: TextStyle(fontSize: 18),
+//                   ),
+//                 ),
+//               ),
+//             ],
+//           ),
+//           SwitchListTile(
+//             title: Text('Dark Mode'),
+//             value: false,
+//             onChanged: toggleTheme,
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
