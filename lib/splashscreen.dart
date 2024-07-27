@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:harmonix/musicmain/bottomnavbar.dart';
 import 'package:harmonix/screens/welcome.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:lottie/lottie.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -43,9 +44,33 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return  Scaffold(
+      backgroundColor: Colors.black,
       body: Center(
-        child: CircularProgressIndicator(),  // Add your splash screen content here
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+          //  SizedBox(height: 100,),
+             Container(
+                        height: 230,
+                        width: 230,
+                        child: Lottie.asset("assets/splash.json")),
+            SizedBox(height: 20),
+            Text(
+              'HarmoniX',
+              style: TextStyle(
+                fontFamily: "DancingScript",
+                fontSize: 48,
+                color: Color.fromARGB(255, 218, 207, 187),
+              ),
+            ),
+            SizedBox(height: 10),
+             Container(
+                        height: 180,
+                        width: 180,
+                        child: Lottie.asset("assets/loader.json")),
+          ],
+        ),
       ),
     );
   }
