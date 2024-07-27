@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_any_logo/flutter_logo.dart';
+import 'package:harmonix/musicmain/bottomnavbar.dart';
 import 'package:harmonix/screens/loginpage.dart';
 import 'package:harmonix/screens/welcome.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -26,21 +27,30 @@ class _SignPageState extends State<SignPage> {
         _isLoading = true;
       });
       try {
-        UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        UserCredential userCredential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: _emailController.text,
           password: _passwordController.text,
         );
         User? user = userCredential.user;
 
         if (user != null) {
-          await FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(user.uid)
+              .set({
             'name': _nameController.text,
             'email': _emailController.text,
           });
         }
-        
+
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => Welcome()));
+            context,
+            MaterialPageRoute(
+                builder: (context) => bottomnav(
+                      username: _nameController.text,
+                      email: _emailController.text,
+                    )));
       } on FirebaseAuthException catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text(e.message ?? 'Registration failed'),
@@ -145,7 +155,8 @@ class _SignPageState extends State<SignPage> {
                                       border: InputBorder.none,
                                       hintText: 'Enter your name',
                                       hintStyle: TextStyle(
-                                          color: Color.fromARGB(66, 218, 212, 212),
+                                          color:
+                                              Color.fromARGB(66, 218, 212, 212),
                                           fontSize: 21)),
                                 ))
                           ],
@@ -197,7 +208,8 @@ class _SignPageState extends State<SignPage> {
                                       border: InputBorder.none,
                                       hintText: 'Enter your email',
                                       hintStyle: TextStyle(
-                                          color: Color.fromARGB(66, 218, 212, 212),
+                                          color:
+                                              Color.fromARGB(66, 218, 212, 212),
                                           fontSize: 21)),
                                 ))
                           ],
@@ -257,13 +269,15 @@ class _SignPageState extends State<SignPage> {
                                         ),
                                         onPressed: () {
                                           setState(() {
-                                            _passwordVisible = !_passwordVisible;
+                                            _passwordVisible =
+                                                !_passwordVisible;
                                           });
                                         },
                                       ),
                                       hintText: 'Enter your password',
                                       hintStyle: TextStyle(
-                                          color: Color.fromARGB(66, 218, 212, 212),
+                                          color:
+                                              Color.fromARGB(66, 218, 212, 212),
                                           fontSize: 21)),
                                 ))
                           ],
@@ -292,7 +306,8 @@ class _SignPageState extends State<SignPage> {
                                   child: Text(
                                     "Sign Up",
                                     style: TextStyle(
-                                        color: Color.fromARGB(255, 238, 237, 235),
+                                        color:
+                                            Color.fromARGB(255, 238, 237, 235),
                                         fontSize: 24,
                                         fontWeight: FontWeight.w400,
                                         fontFamily: "Merriweather"),

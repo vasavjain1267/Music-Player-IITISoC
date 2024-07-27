@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:harmonix/ai/pages/home_page.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:lottie/lottie.dart';
 import 'deezer_service.dart';
 import 'hive_model.dart';
 import 'player_screen.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 class SongListPage extends StatefulWidget {
+  final String username;
+  SongListPage({required this.username});
+
   @override
   _SongListPageState createState() => _SongListPageState();
 }
@@ -140,7 +145,26 @@ class _SongListPageState extends State<SongListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Songs")),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => HomePage(),
+            ),
+          );
+        },
+        child: Container(
+            height: 150, width: 150, child: Lottie.asset("assets/ai.json")),
+        backgroundColor: Colors.black,
+        foregroundColor: Color.fromARGB(255, 122, 122, 2),
+      ),
+      appBar: AppBar(
+        title: Text('Hello ${widget.username}',
+            style: const TextStyle(
+                fontSize: 25, color: Color.fromARGB(255, 60, 185, 125))),
+      ),
       body: Expanded(
         child: Container(
           decoration: BoxDecoration(
