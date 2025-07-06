@@ -88,14 +88,51 @@ Working alongside talented teammates Aryan Kumar, Yochana Mythri Gangyada, and V
 - Explore music, get AI-powered recommendations, and stream live radio.
 - Personalize your experience through the settings and enjoy animated UI elements.
 
-## Project Structure
+## Project Structure (Updated)
 
-| File/Folder      | Purpose                                      |
-|------------------|----------------------------------------------|
-| `lib/`           | Flutter app source code                      |
-| `assets/`        | Images, Lottie files, and other resources    |
-| `backend/`       | Fast API backend for radio streaming         |
-| `pubspec.yaml`   | Flutter dependencies and configuration       |
+The HarmoniX (Music-Player-IITISoC) project is organized to support cross-platform development, modularity, and ease of maintenance. Here’s an updated breakdown of the main files and folders based on the repository structure:
+
+| File/Folder         | Purpose                                                        |
+|---------------------|----------------------------------------------------------------|
+| `.vscode/`          | Visual Studio Code workspace settings                          |
+| `android/`          | Android platform-specific code                                 |
+| `assets/`           | Static assets (images, audio files, etc.)                      |
+| `ios/`              | iOS platform-specific code                                     |
+| `lib/`              | Main Flutter/Dart source code (UI, logic, features)            |
+| `linux/`            | Linux platform-specific code                                   |
+| `macos/`            | macOS platform-specific code                                   |
+| `test/`             | Unit and widget tests                                          |
+| `web/`              | Web platform-specific code                                     |
+| `windows/`          | Windows platform-specific code                                 |
+| `.gitignore`        | Specifies files and folders to be ignored by Git               |
+| `.metadata`         | Flutter project metadata                                       |
+| `Backend`           | Backend-related scripts or configuration                       |
+| `Frontend`          | Frontend-related scripts or configuration                      |
+| `LICENSE`           | Project license (add if you wish to open source)               |
+| `README.md`         | Project documentation                                          |
+| `analysis_options.yaml` | Dart analysis and linting rules                           |
+| `firebase.json`     | Firebase configuration                                         |
+| `pubspec.lock`      | Locked versions of dependencies                                |
+| `pubspec.yaml`      | Flutter dependencies and project configuration                 |
+
+### `lib/` Directory Structure
+
+Within the `lib/` folder, the code is further organized by feature and functionality:
+
+| Subfolder/File            | Purpose                                               |
+|---------------------------|------------------------------------------------------|
+| `ai/`                     | AI-related features (e.g., chatbot, recommendations) |
+| `music/`                  | Music playback and management logic                  |
+| `musicmain/`              | Main music player logic and UI                       |
+| `radiofront/`             | Radio streaming frontend                             |
+| `redundant/`              | Deprecated or backup code                            |
+| `screens/`                | UI screens and navigation                            |
+| `services/`               | Service classes (API, data, etc.)                    |
+| `settings/`               | User and app settings                                |
+| `widgets/`                | Reusable UI components                               |
+| Dart files (e.g., `main.dart`, `app_drawer.dart`, etc.) | App entry point and core widgets |
+
+This structure supports a scalable, maintainable, and cross-platform codebase, making it easier for teams to collaborate and extend the app’s functionality.
 
 ## Customization
 
