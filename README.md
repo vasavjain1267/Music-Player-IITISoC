@@ -88,7 +88,7 @@ Working alongside talented teammates Aryan Kumar, Yochana Mythri Gangyada, and V
 - Explore music, get AI-powered recommendations, and stream live radio.
 - Personalize your experience through the settings and enjoy animated UI elements.
 
-## Project Structure (Updated)
+## Project Structure
 
 The HarmoniX (Music-Player-IITISoC) project is organized to support cross-platform development, modularity, and ease of maintenance. Here’s an updated breakdown of the main files and folders based on the repository structure:
 
